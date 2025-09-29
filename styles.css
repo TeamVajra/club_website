@@ -609,7 +609,7 @@ a:hover, a:active, a:focus {
 .sponsor {
   padding: 40px 20px;
   text-align: center;
-  background-color: #f9f9f9; /* Optional background */
+  background-color: #f9f9f9;
 }
 
 .section-title {
@@ -617,24 +617,37 @@ a:hover, a:active, a:focus {
   margin-bottom: 30px;
 }
 
-.sponsor-logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 40px; /* spacing between logos */
+.marquee {
+  overflow: hidden;
+  position: relative;
 }
 
-.sponsor-logos img {
+.marquee-content {
+  display: flex;
+  gap: 40px;
+  animation: scroll 30s linear infinite;
+}
+
+.marquee-content a img {
   max-height: 90px;
   max-width: 150px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.sponsor-logos img:hover {
-  transform: scale(1.05); /* Optional hover effect */
+.marquee-content a img:hover {
+  transform: scale(1.05);
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 /*---------------------------------------
     Contact section              
@@ -828,6 +841,7 @@ footer {
   }
 
 }
+
 
 
 
