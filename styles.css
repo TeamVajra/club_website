@@ -606,6 +606,13 @@ a:hover, a:active, a:focus {
 /*---------------------------------------
     Sponsor section              
 -----------------------------------------*/
+.sponsor-logo {
+  width: 150px;
+  height: 90px;
+  object-fit: contain;
+  display: inline-block;
+}
+
 
 
 /*---------------------------------------
@@ -800,6 +807,7 @@ footer {
   }
 
 }
+
 
 
 
