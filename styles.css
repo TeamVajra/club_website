@@ -603,6 +603,38 @@ a:hover, a:active, a:focus {
     margin: 0 20px 20px 0; /* right and bottom gap */
     vertical-align: middle;
 }
+/*---------------------------------------
+    Sponsor section              
+-----------------------------------------*/
+.sponsor {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f9f9f9; /* Optional background */
+}
+
+.section-title {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.sponsor-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px; /* spacing between logos */
+}
+
+.sponsor-logos img {
+  max-height: 90px;
+  max-width: 150px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.sponsor-logos img:hover {
+  transform: scale(1.05); /* Optional hover effect */
+}
 
 /*---------------------------------------
     Contact section              
@@ -800,29 +832,3 @@ footer {
 
 
 
-.sponsor {
-  text-align: center;
-  margin-top: 40px;
-}
-.sponsor img {
-  max-width: 200px;
-}
-ul.social-icon {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0;
-}
-
-ul.social-icon li {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-ul.social-icon a {
-  background-color: transparent;
-  border: none; /* No border around links */
-}
-
-ul.social-icon img {
-  background-color: transparent; 
-  display: block; /* Make image take full size */
-}
