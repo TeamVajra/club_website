@@ -606,47 +606,6 @@ a:hover, a:active, a:focus {
 /*---------------------------------------
     Sponsor section              
 -----------------------------------------*/
-.sponsor {
-  padding: 40px 20px;
-  text-align: center;
-  background-color: #f9f9f9;
-}
-
-.section-title {
-  font-size: 2em;
-  margin-bottom: 30px;
-}
-
-.marquee {
-  overflow: hidden;
-  position: relative;
-}
-
-.marquee-content {
-  display: flex;
-  gap: 40px;
-  animation: scroll 30s linear infinite;
-}
-
-.marquee-content a img {
-  max-height: 90px;
-  max-width: 150px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.marquee-content a img:hover {
-  transform: scale(1.05);
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
 
 /*---------------------------------------
@@ -841,6 +800,7 @@ footer {
   }
 
 }
+
 
 
 
