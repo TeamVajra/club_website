@@ -1,0 +1,765 @@
+/* styles.css - global styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --brand-primary: #800000;      /* maroon */
+  --brand-secondary: #F7C275;
+  --text-dark: #000000;
+  --action: #DA4747;
+  --neutral: #000000; /* neutral text black */
+  --subtle-bg: #F00000;
+
+  --max-width: 1100px;
+  --radius: 14px;
+  --glass: rgba(255,255,255,0.06);
+}
+
+/* Bitcount (headline) - place the file at assets/fonts/BitcountPropSingleInk.woff2 */
+@font-face {
+  font-family: 'BitcountSingle';
+  src: url('/assets/fonts/BitcountPropSingleInk.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: var(--neutral);
+  background: linear-gradient(180deg, #fff 0%, #f8f8f8 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header / Nav */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,0.35));
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand img {
+  height: 46px;
+  width: 46px;
+  object-fit: contain;
+}
+
+.brand .title {
+  font-weight: 700;
+  color: var(--brand-primary);
+  font-size: 18px;
+}
+
+/* Navigation links - maroon */
+.header a {
+  color: var(--brand-primary) !important; /* maroon links */
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  position: relative;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+/* Hover effect */
+.header a:hover {
+  color: #B22222; /* darker maroon on hover */
+  background: rgba(128,0,0,0.08);
+}
+
+/* Active page */
+.header a.active {
+  color: var(--brand-primary);  /* keep active link maroon */
+  font-weight: 600;
+}
+
+/* Navigation underline animation */
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--brand-primary); /* underline matches link color */
+  transition: width 0.25s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+  z-index: 1;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 80px 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-left {
+  flex: 1;
+  color: white;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: 'BitcountSingle', 'Poppins', sans-serif;
+  font-size: 48px;
+  letter-spacing: 1px;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.hero p {
+  margin-top: 14px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.9);
+  max-width: 680px;
+}
+
+/* CTA Button */
+.btn {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--brand-secondary), var(--action));
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Sections */
+.section {
+  padding: 72px 0;
+  background: transparent;
+}
+.section .card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 28px rgba(22,22,22,0.06);
+}
+
+/* Grid utilities */
+.row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.col {
+  flex: 1 1 300px;
+}
+
+/* Placeholder for images */
+.placeholder-img {
+  width: 100%;
+  height: 220px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#f1f1f1,#e9e9e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-weight: 600;
+}
+
+/* Team grid */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+  gap: 18px;
+}
+.team-card {
+  padding: 14px;
+  border-radius: 12px;
+  background: white;
+  text-align: center;
+}
+.team-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+  padding: 28px 0;
+  margin-top: 40px;
+  border-top: 1px solid rgba(0,0,0,0.04);
+}
+.footer .socials a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: var(--neutral);
+}
+
+/* Animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp .7s forwards;
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .hero h1 {
+    font-size: 30px;
+  }
+  .hero-inner {
+    padding: 36px 0;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Sponsor section */
+.sponsor-logo {
+  height: 75px; /* medium size logos */
+  width: auto;
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.sponsor-logo:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+/* ===== FULLY VISIBLE RESPONSIVE GALLERY ===== */
+.gallery-content ul.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gallery-content ul.grid li figure {
+  margin: 0;
+  border-radius: 12px;
+  background: #fff;
+  overflow: visible; /* allow full image to show */
+}
+
+.gallery-content ul.grid li figure div {
+  width: 100%;
+  overflow: visible; /* important: prevents clipping */
+  border-radius: 12px;
+}
+
+.gallery-content ul.grid li figure div img {
+  width: 100%;
+  height: auto;        /* image scales naturally */
+  object-fit: contain; /* ensures no cropping */
+  display: block;
+  border-radius: 12px;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.gallery-content ul.grid li figure:hover div img {
+  transform: scale(1.02); /* optional subtle hover effect */
+}
+
+.gallery-content ul.grid li figure figcaption {
+  padding: 10px 6px;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+}
+
+
+/* Drone item layout */
+.drone-item {
+  display: flex;
+  flex-direction: column; /* stack image and button vertically */
+  gap: 8px;
+}
+
+.drone-item figure {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.drone-item figure div {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.drone-item figure div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.drone-item figure:hover div img {
+  transform: scale(1.05);
+}
+
+/* ===============================
+   Achievements Section
+   =============================== */
+
+/* --- General/Utility Styles (Keep as before or adjust colors) --- */
+:root {
+  --primary-color: #800000; /* Team's Main Color (Blue) */
+  --secondary-color: #f8f9fa; /* Light Background */
+  --accent-color: #ffc107; /* Bright Accent (Yellow/Gold) */
+  --dark-text: #000000;
+  --timeline-line-width: 4px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-text);
+  background-color: var(--secondary-color);
+  line-height: 1.6;
+}
+
+/* Ensure main content takes up enough space and centers itself */
+main {
+  padding: 40px 20px;
+  max-width: 1200px; /* Max content width */
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+/* --- Full-Page Timeline Container Setup --- */
+.timeline {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+/* The vertical timeline line - STAYS CENTERED */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%; /* Center the line */
+  transform: translateX(-50%);
+  width: var(--timeline-line-width);
+  height: 100%;
+  background: linear-gradient(to bottom, var(--primary-color) 0%, #3a7bd5 100%);
+}
+
+/* --- Individual Timeline Event Styling --- */
+
+.timeline-event {
+  position: relative;
+  margin-bottom: 100px;
+  width: 50%; /* Each event takes half the timeline width */
+  padding: 0 40px; /* Space between the event box and the central line */
+}
+
+/* 1. Placement (Alternating Left/Right) */
+/* Odd events on the left */
+.timeline-event:nth-child(odd) {
+  left: 0;
+  text-align: right;
+  transform-origin: right center; /* Set transform origin for better animation */
+}
+
+/* Even events on the right */
+.timeline-event:nth-child(even) {
+  left: 50%;
+  transform-origin: left center; /* Set transform origin for better animation */
+}
+
+/* 2. Content Box Styling */
+.event-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block; /* Helps contain the box width naturally */
+  max-width: 100%;
+}
+
+/* Hover Effect */
+.timeline-event:hover .event-content {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-event h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+  font-size: 1.6rem;
+  /* Use a slightly different accent border for this full-width look */
+  border-bottom: 3px solid var(--accent-color); 
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.timeline-event .date {
+  color: #6c757d;
+  font-style: italic;
+  margin-bottom: 10px;
+  font-weight: 600;
+  display: block; /* Ensure date is on its own line */
+}
+
+/* 3. Image Styling (Only applies to event with image) */
+.timeline-event img {
+  max-width: 100%; 
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 15px; /* Space below content */
+  border: 4px solid var(--primary-color);
+  transition: transform 0.5s ease;
+}
+
+.timeline-event:nth-child(even) img {
+    /* If an image is present on a right-side event, align it right */
+    margin-left: auto;
+    display: block;
+}
+
+/* 4. The circle/dot on the line */
+.timeline-event::after {
+  content: '';
+  position: absolute;
+  top: 35px; /* Position vertically (adjust based on h3 height) */
+  width: 20px;
+  height: 20px;
+  background: var(--accent-color);
+  border: 4px solid var(--secondary-color); /* Matches page background */
+  border-radius: 50%;
+  z-index: 10;
+}
+
+/* Position dots for left (odd) events */
+.timeline-event:nth-child(odd)::after {
+  right: -10px; /* Half of the dot width to align to the central line */
+}
+
+/* Position dots for right (even) events */
+.timeline-event:nth-child(even)::after {
+  left: -10px;
+}
+
+
+/* --- Responsiveness (Crucial for mobile view) --- */
+
+@media (max-width: 768px) {
+  /* Collapse to a single-sided left timeline on small screens */
+  
+  .timeline::before {
+    left: 20px; /* Move the line to the far left */
+    transform: none; /* Reset transform */
+  }
+
+  .timeline-event {
+    width: 100%; /* Event takes full width of parent container */
+    left: 0; /* Align all events to the left edge */
+    padding-left: 60px; /* Space for the line/dots */
+    padding-right: 10px;
+    text-align: left !important; /* Force all text alignment left */
+    transform-origin: left center !important;
+  }
+  
+  /* Reset placement for even/odd on mobile */
+  .timeline-event:nth-child(odd) {
+    text-align: left;
+  }
+
+  .timeline-event:nth-child(even) {
+    left: 0;
+  }
+  
+  /* Adjust dot position to align with the new left line */
+  .timeline-event::after {
+    left: 10px !important; 
+    right: auto !important;
+  }
+  
+  /* Ensure the content box utilizes the full width available */
+  .event-content {
+      display: block;
+  }
+
+  .timeline-event h3 {
+      display: block;
+  }
+}
+
+/* --- Scroll Animation Styles (Keep the same) --- */
+
+.fade-in {
+  opacity: 0;
+  transform: scale(0.95); /* Scale effect combined with fade */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Footer CSS */
+.site-footer {
+    background-color: #222; /* Dark background */
+    color: #ccc; /* Light text */
+    padding-top: 20px;
+    padding-bottom: 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex; /* Use flexbox for columns */
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-column {
+    width: 22%; /* Adjust based on the number of columns */
+    margin-bottom: 10px;
+}
+
+.footer-column h4 {
+    color: #040404;
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li a,
+.footer-column p a {
+    color: #ccc;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover,
+.footer-column p a:hover {
+    color: #008cba; /* Highlight color on hover */
+}
+
+/* Social Media Styling */
+.social-links a {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+/* Bottom Copyright Bar */
+.footer-bottom {
+    background-color: #1a1a1a; /* Slightly darker bar */
+    text-align: center;
+    padding: 10px 20px;
+    margin-top: 0px;
+    font-size: 0.9em;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-column {
+        width: 45%; /* Two columns on tablets */
+    }
+}
+@media (max-width: 480px) {
+    .footer-column {
+        width: 100%; /* Stack columns on phones */
+    }
+}
+
+
+/* General Dark Theme */
+body {
+  background-color: #000000; /* Black background */
+  color: #f0f0f0; /* Light text */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #f7c275; /* Yellow links */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #da4747; /* Red hover */
+}
+
+/* Header / Navbar */
+header, nav {
+  background-color: #1a1a1a; /* Dark header */
+  color: #f0f0f0;
+}
+
+nav a {
+  color: #f7c275;
+}
+
+nav a:hover {
+  color: #da4747;
+}
+
+//* Main content */
+main, section {
+  background-color: #ffffff; /* Light sections */
+  color: #222222; /* Dark text */
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #800000; /* Maroon accent headings */
+}
+
+/* Buttons */
+button, .btn {
+  background-color: #800000; /* Maroon buttons */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+  background-color: #da4747; /* Red hover */
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables, cards, or other boxes */
+.card, .content-box {
+  background-color: #ffffff; /* Light card background */
+  border: 1px solid #ddd;
+  color: #222222;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+/* Form inputs */
+input, textarea, select {
+  background-color: #fff;
+  color: #222222;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* Map iframe */
+iframe {
+  border-radius: 8px;
+  filter: brightness(1); /* Normal brightness for light theme */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main, section {
+    padding: 15px;
+  }
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #fafafa; /* Light gray background */
+  color: #222222;
+} 
