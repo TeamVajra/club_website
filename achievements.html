@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TEAM VAJRA - Achievements</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/club-logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-maroon: #800000;
+      --brand-yellow: #f7c275;
+      --text-light: #f8f8f8;
+      --text-muted: #ccc;
+      --bg-dark: #0a0a0a;
+      --bg-card: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: var(--text-light);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-maroon);
+    }
+
+    /* Achievements Section */
+    main {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    main h2 {
+      text-align: center;
+      color: var(--brand-yellow);
+      margin-bottom: 40px;
+      font-size: 2.2em;
+      text-shadow: 0 0 10px rgba(255, 200, 100, 0.5);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .achievement-item {
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--bg-card);
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .achievement-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .achievement-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(247, 194, 117, 0.3);
+    }
+
+    .achievement-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .achievement-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      padding: 14px;
+      color: var(--brand-yellow);
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.15rem; /* Larger caption text */
+      letter-spacing: 0.5px;
+    }
+
+    /* Spacing between Achievements and Upcoming Events */
+    .section-divider {
+      margin-top: 70px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #111;
+      color: var(--text-muted);
+      font-family: 'Lexend', sans-serif;
+      padding-top: 30px;
+      border-top: 2px solid var(--brand-maroon);
+    }
+
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1 1 250px;
+    }
+
+    .footer-column h4 {
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      background: #000;
+      padding: 12px;
+      font-size: 13px;
+      border-top: 1px solid #222;
+    }
+
+    .social-links img {
+      height: 32px;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      filter: brightness(0.9);
+    }
+
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: brightness(1.2);
+    }
+     body {
+  background: url('assets/DSC_0112.JPG') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-light);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.75); /* Dark overlay for readability */
+  z-index: -1;
+}
+
+    /* ===== Sponsors Section ===== */
+    .sponsor {
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 2px solid var(--brand-maroon);
+      border-bottom: 2px solid var(--brand-maroon);
+    }
+
+    .sponsor h2 {
+      color: var(--brand-yellow);
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .sponsor img {
+      height: 60px;
+      margin: 0 20px;
+      opacity: 0.9;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .sponsor img:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+        <div>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:#fff;">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html">Home</a>
+      <a href="/achievements.html" class="active">Achievements</a>
+      <a href="/drones.html">Drones</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/team.html">Team</a>
+    </div>
+  </header>
+
+  <!-- Achievements Section -->
+  <main>
+    <h2>Our Achievements 🏆</h2>
+    <div class="achievements-grid">
+      <div class="achievement-item">
+        <img src="/assets/vajra-onstage.jpg" alt="Technoxian 2025">
+        <div class="achievement-caption">Technoxian 2025 - World Rank 3 / All India Rank 2</div>
+      </div>
+      <div class="achievement-item">
+        <img src="/assets/technoxian-24.jpg" alt="Technoxian Championship 2024">
+        <div class="achievement-caption">Technoxian 2024 - World Rank 4 / All India Rank 2</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <div class="section-divider"></div>
+    <h2>Upcoming Events</h2>
+    <div class="achievements-grid">
+      <div class="achievement-item">
+        <img src="/assets/iitb.jpg" alt="Techfest IIT Bombay">
+        <div class="achievement-caption">Techfest IIT Bombay 2025</div>
+      </div>
+      <div class="achievement-item">
+        <img src="/assets/sae-international-logo.png" alt="SAE Aerothon">
+        <div class="achievement-caption">SAE Aerothon 2026</div>
+      </div>
+    </div>
+  </main>
+ <!-- Sponsors -->
+  <section class="sponsor">
+    <h2>Our Sponsors</h2>
+    <marquee behavior="alternate" direction="left" scrollamount="6">
+      <a href="https://www.ansys.com/en-in" target="_blank"><img src="assets/ansys-logo.jpg"></a>
+      <a href="https://www.altium.com/" target="_blank"><img src="assets/alt.logo.png"></a>
+      <a href="https://punecottoncompany.com/" target="_blank"><img src="assets/pune cotton comp.jpeg"></a>
+      <a href="#"><img src="assets/phoenix systems.png"></a>
+      <a href="https://learnac.com/" target="_blank"><img src="assets/ninad.png"></a>
+    </marquee>
+  </section>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-column branding">
+        <h4>TEAM VAJRA-RC Drone Club MMCOE</h4>
+        <p>At team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone technology.</p>
+      </div>
+
+      <div class="footer-column contact">
+        <h4>Contact Us</h4>
+        <address>
+          <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a></p>
+          <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+          <p><strong>Phone:</strong> Aditya S.: +91 8626080604</p>
+        </address>
+      </div>
+
+      <div class="footer-column social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img src="assets/insta.png" alt="Instagram"></a>
+          <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img src="assets/linked in.png" alt="LinkedIn"></a>
+        </div>
+        <p><strong>Location:</strong><br>Sr.No. 18, Plot No. 5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar, Pune 411052, Maharashtra, India.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
