@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TEAM VAJRA - Our Team</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/club-logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-maroon: #800000;
+      --brand-yellow: #f7c275;
+      --text-light: #f8f8f8;
+      --text-muted: #ccc;
+      --bg-dark: #0a0a0a;
+      --bg-card: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
+    body {
+      background: url('assets/DSC_0128.JPG') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: -1;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: var(--text-light);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    /* Team Section (Gallery style) */
+    .team-section {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .team-section h2 {
+      text-align: center;
+      color: var(--brand-yellow);
+      margin-bottom: 40px;
+      font-size: 2.3em;
+      text-shadow: 0 0 10px rgba(255, 200, 100, 0.5);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .team-member {
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--bg-card);
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      aspect-ratio: 4 / 3;
+      position: relative;
+    }
+
+    .team-member img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(247, 194, 117, 0.3);
+    }
+
+    .team-member:hover img {
+      transform: scale(1.05);
+    }
+
+    .team-member span {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: var(--brand-yellow);
+      font-size: 1em;
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding-top: 30px;
+      border-top: 2px solid var(--brand-maroon);
+    }
+
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1 1 250px;
+    }
+
+    .footer-column h4 {
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .social-links img {
+      height: 32px;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      filter: brightness(90%);
+    }
+
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: brightness(110%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+        <div>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:#fff;">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html">Home</a>
+      <a href="/achievements.html">Achievements</a>
+      <a href="/drones.html">Drones</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/team.html" class="active">Team</a>
+    </div>
+  </header>
+
+  <!-- TEAM SECTION -->
+  <section class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-member"><img src="assets/IMG-20251008-WA0010.jpg" alt="Prathamesh"><span>Prathamesh</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0013.jpg" alt="Aditya"><span>Aditya</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0012.jpg" alt="Atharva"><span>Atharva</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0011.jpg" alt="Aarav"><span>Aarav</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0015.jpg" alt="Omkar"><span>Omkar</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0014.jpg" alt="Tanisha"><span>Tanisha</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0016.jpg" alt="Vishwajit"><span>Vishwajit</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0017.jpg" alt="Anushk"><span>Anushk</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0019.jpg" alt="Soham"><span>Soham</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0018.jpg" alt="Avani"><span>Avani</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0025.jpg" alt="Ameya"><span>Ameya</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0020.jpg" alt="Sammrudhi"><span>Sammrudhi</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0022.jpg" alt="Sanskruti"><span>Sanskruti</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0024.jpg" alt="Rajat"><span>Rajat</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0026.jpg" alt="Pranav"><span>Pranav</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0023.jpg" alt="Mohit"><span>Mohit</span></div>
+      <div class="team-member"><img src="assets/IMG-20251008-WA0021.jpg" alt="Siddhant"><span>Siddhant</span></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-column branding">
+        <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+        <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone technology.</p>
+      </div>
+      <div class="footer-column contact">
+        <h4>Contact Us</h4>
+        <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a></p>
+        <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+        <p><strong>Phone:</strong> Aditya S.: +91 8626080604</p>
+      </div>
+      <div class="footer-column social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img src="assets/insta.png" alt="Instagram"></a>
+          <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img src="assets/linked in.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
