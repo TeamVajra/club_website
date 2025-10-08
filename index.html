@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TEAM VAJRA - Drone Club | Home</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/club-logo.jpg">
+
+  <!-- Lexend Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-maroon: #800000;
+      --brand-yellow: #f7c275;
+      --text-light: #ffffff;
+      --text-muted: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* ===== Background Video ===== */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(45%) contrast(110%);
+    }
+
+    /* ===== Header ===== */
+    .header {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: #fff;
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .nav a:hover {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-light);
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+      text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero h3 {
+      font-size: 1.5em;
+      color: var(--brand-yellow);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+    }
+
+    .hero p {
+      max-width: 800px;
+      color: var(--text-muted);
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: var(--brand-maroon);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: var(--brand-yellow);
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    /* ===== Sponsors Section ===== */
+    .sponsor {
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 2px solid var(--brand-maroon);
+      border-bottom: 2px solid var(--brand-maroon);
+    }
+
+    .sponsor h2 {
+      color: var(--brand-yellow);
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .sponsor img {
+      height: 60px;
+      margin: 0 20px;
+      opacity: 0.9;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .sponsor img:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 30px;
+      border-top: 2px solid var(--brand-maroon);
+    }
+
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1 1 250px;
+    }
+
+    .footer-column h4 {
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .social-links img {
+      height: 32px;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      filter: brightness(90%);
+    }
+
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: brightness(110%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="assets/bg-video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+        <div>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:#fff;">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html" class="active">Home</a>
+      <a href="/achievements.html">Achievements</a>
+      <a href="/drones.html">Drones</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/team.html">Team</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Throttling to Great Heights</h1>
+    <h3>About Us</h3>
+    <p><strong>Team Vajra</strong> is the official <strong>Drone and Robotics Club of MMCOE</strong>, dedicated to pioneering innovation in <strong>UAV design, development, and aerial technology</strong>. Our team focuses on building cutting-edge autonomous systems, high-speed racing drones, and practical aerial solutions that push the boundaries of modern engineering.</p> <p><strong>Achievements:</strong> Proud winners of <strong>Technoxian 2025</strong> — securing <strong>World Rank 3</strong> and <strong>All India Rank 2</strong> in Drone Racing, a testament to our technical mastery and collaborative spirit.</p> <p>Driven by innovation, precision, and passion, <strong>Team Vajra</strong> continues to redefine the skies — one flight at a time — through excellence in engineering, teamwork, and relentless pursuit of aerial perfection.</p>
+    <a href="/drones.html" class="btn">Explore Our Drones</a>
+  </section>
+
+  <!-- Sponsors -->
+  <section class="sponsor">
+    <h2>Our Sponsors</h2>
+    <marquee behavior="alternate" direction="left" scrollamount="6">
+      <a href="https://www.ansys.com/en-in" target="_blank"><img src="assets/ansys-logo.jpg"></a>
+      <a href="https://www.altium.com/" target="_blank"><img src="assets/alt.logo.png"></a>
+      <a href="https://punecottoncompany.com/" target="_blank"><img src="assets/pune cotton comp.jpeg"></a>
+      <a href="#"><img src="assets/phoenix systems.png"></a>
+      <a href="https://learnac.com/" target="_blank"><img src="assets/ninad.png"></a>
+    </marquee>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-column branding">
+        <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+        <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone technology.</p>
+      </div>
+
+      <div class="footer-column contact">
+        <h4>Contact Us</h4>
+        <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a></p>
+        <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+        <p><strong>Phone:</strong> Aditya S.: +91 8626080604</p>
+      </div>
+
+      <div class="footer-column social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img src="assets/insta.png"></a>
+          <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img src="assets/linked in.png"></a>
+        </div>
+        <p><strong>Location:</strong><br>Sr.No.18, Plot No.5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar, Pune 411052, Maharashtra, India.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
