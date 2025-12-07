@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TEAM VAJRA - Drone Club | Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/club-logo.jpg">
+
+  <!-- Lexend Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-maroon: #800000;
+      --brand-yellow: #f7c275;
+      --text-light: #ffffff;
+      --text-muted: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
+    body {
+      color: var(--text-light);
+      overflow-x: hidden;
+      /* New background image instead of video */
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.92)),
+        url("assets/blog-bg-drones.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: #fff;
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .nav a:hover {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    .nav a.active {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    /* ===== Blog Page ===== */
+    .blog-page {
+      min-height: 100vh;
+      padding: 80px 20px 60px;
+    }
+
+    .blog-page-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .blog-page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .blog-page-header h1 {
+      font-size: 2.4rem;
+      color: var(--brand-yellow);
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+    }
+
+    .blog-page-header p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .blog-post {
+      background: rgba(0, 0, 0, 0.78);
+      border-radius: 16px;
+      padding: 22px 24px;
+      border: 1px solid rgba(247, 194, 117, 0.25);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .blog-post h2 {
+      color: var(--brand-yellow);
+      margin-bottom: 6px;
+      font-size: 1.5rem;
+    }
+
+    .blog-meta {
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .blog-tags {
+      margin-bottom: 10px;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      border-radius: 999px;
+      border: 1px solid rgba(247, 194, 117, 0.6);
+      padding: 2px 10px;
+      font-size: 0.75rem;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .blog-post p {
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.97rem;
+    }
+
+    .blog-post ul,
+    .blog-post ol {
+      margin-left: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .blog-post h3 {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+      color: var(--brand-yellow);
+    }
+
+    .blog-image {
+      display: block;
+      max-width: 100%;
+      border-radius: 14px;
+      margin: 16px auto 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .back-to-top {
+      text-align: right;
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+
+    .back-to-top a {
+      color: var(--brand-yellow);
+      text-decoration: none;
+    }
+
+    .back-to-top a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 30px;
+      border-top: 2px solid var(--brand-maroon);
+      margin-top: 20px;
+    }
+
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1 1 250px;
+    }
+
+    .footer-column h4 {
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .social-links img {
+      height: 32px;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      filter: brightness(90%);
+    }
+
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: brightness(110%);
+    }
+    /* ===== Sponsors Section ===== */
+    .sponsor {
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 2px solid var(--brand-maroon);
+      border-bottom: 2px solid var(--brand-maroon);
+    }
+
+    .sponsor h2 {
+      color: var(--brand-yellow);
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .sponsor img {
+      height: 60px;
+      margin: 0 20px;
+      opacity: 0.9;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .sponsor img:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+        <div>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html">Home</a>
+      <a href="/achievements.html">Achievements</a>
+      <a href="/drones.html">Drones</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/team.html">Team</a>
+      <a href="/blog.html" class="active">Blogs</a>
+    </div>
+  </header>
+
+  <!-- Blog Page Content -->
+  <main class="blog-page" id="top">
+    <div class="blog-page-inner">
+      <div class="blog-page-header">
+        <h1>FLIGHT PATH: The Official Team Vajra Blog</h1>
+        <p>Race recaps, build logs, tutorials, and stories from the pilots, engineers, and innovators behind our drones.</p>
+      </div>
+
+      <section class="blog-list">
+
+        <!-- BLOG POST 1 – YOUR NEW POST -->
+        <article class="blog-post" id="sky-no-limit-world-rank-3">
+          <h2>The Sky's No Limit: How VAJRA Flew to World Rank 3</h2>
+          <div class="blog-meta">Published: Jan 2025 · Category: Race Recap</div>
+          <div class="blog-tags">
+            <span class="blog-tag">Technoxian 9.0</span>
+            <span class="blog-tag">World Rank 3</span>
+            <span class="blog-tag">Achievement</span>
+          </div>
+
+          <!-- Blog Image (medals) -->
+          <img src="assets/sky-no-limit-medals.jpg"
+               alt="Team VAJRA members holding their medals in a circle"
+               class="blog-image">
+
+          <p>
+            What happens when a crazy idea meets pure grit? You get VAJRA. We're not just some
+            drone club; we're a family of dreamers, builders, and flyers who believe the sky is
+            our playground. At VAJRA, "innovation" means endless coffee-fueled nights, countless
+            test flights (and crashes!), a ton of hard work, and that electric rush when our
+            creations finally soar.
+          </p>
+
+          <p>
+            For us, TechnoXian 2025 wasn't just another competition. It was our chance to show the
+            world what we stand for: crazy teamwork, raw passion, and unyielding creativity.
+            Through sheer determination, we made our mark on one of the planet's toughest drone
+            competitions, proudly nabbing <strong>All India Rank 2</strong> and an incredible
+            <strong>World Rank 3</strong>.
+          </p>
+
+          <h3>TechnoXian: The Olympics of Robotics and Drones</h3>
+          <p>
+            TechnoXian, run by the All India Council for Robotics and Automation (AICRA), is
+            basically the Olympics for robotics and drones. It brings together innovators,
+            hobbyists, and pros from everywhere to push the limits in wild categories. We threw
+            ourselves into every challenge:
+          </p>
+          <ul>
+            <li>Drone Racing FPV Challenge</li>
+            <li>Search and Rescue Mission</li>
+            <li>Payload Delivery and Drone Soccer</li>
+          </ul>
+
+          <h3>Our Journey: Scrapes, Setbacks, and Soaring Success</h3>
+          <p>
+            Securing World Rank 3 definitely didn't happen overnight. For months, our lives were
+            all about drones. We obsessed over making them lightweight and aerodynamic, fine-tuning
+            every line of code for agility and stability. We tested, crashed, rebuilt, and
+            collaborated until we were blue in the face. We learned from every single failure and
+            celebrated every tiny breakthrough.
+          </p>
+
+          <h3>Making of Champions: A Real-World Grind</h3>
+          <p>
+            Building elite drones from basic parts is the ultimate test of smarts and toughness.
+            Our team dedicated months of their lives to this international stage—from convincing
+            sponsors to designing our own jerseys.
+          </p>
+          <p>
+            We hit countless roadblocks: broken parts, late-night rebuilds, and a lot of
+            frustration. But every challenge just made us more determined. The result? Our AIR 2
+            and World Rank 3 trophies are a testament to that grind. Every sleepless night, every
+            snapped propeller, every dead battery, and every successful flight forged our resolve
+            to make it on the global stage.
+          </p>
+
+          <h3>What Makes Us, Us?</h3>
+          <p>
+            At VAJRA, we don't just assemble drones; we build an experience that perfectly blends
+            technical skill with genuine camaraderie. Our passion and unity set us apart. We fly
+            not just to compete, but to represent the heart and spirit of our team.
+          </p>
+          <p>
+            With amazing guidance from our experienced seniors and faculty, we're constantly
+            raising the bar for the next generation.
+          </p>
+
+          <h3>The Future is Bright</h3>
+          <p>
+            Our win at TechnoXian 9.0 isn't just a shiny medal; it's a launchpad for the future.
+            The enthusiasm of our juniors, guided by the wisdom of our seniors, shows the growing
+            strength of our "family." This momentum fuels our ambition to keep innovating, push the
+            boundaries of drone tech, and proudly represent our institution globally.
+          </p>
+          <p>
+            For prospective members, VAJRA is more than a club. It's a home where curiosity meets
+            opportunity and passion becomes a superpower. Whether you're a total newbie or a tech
+            whiz, you're welcome here.
+          </p>
+          <p>
+            To all our supporters, friends, and fellow drone enthusiasts, stay tuned for what's
+            next! Follow our journey as we share behind-the-scenes moments, technical insights, and
+            the pure excitement of competition.
+          </p>
+          <p>
+            Together, we'll soar higher and redefine what's possible in the skies.
+          </p>
+
+          <div class="back-to-top">
+            <a href="#top">↑ Back to top</a>
+          </div>
+        </article>
+
+      </section>
+    </div>
+  </main>
+    <!-- Sponsors -->
+  <section class="sponsor">
+    <h2>Our Sponsors</h2>
+    <marquee behavior="alternate" direction="left" scrollamount="6">
+      <a href="https://www.ansys.com/en-in" target="_blank"><img src="assets/ansys-logo.jpg"></a>
+      <a href="https://www.altium.com/" target="_blank"><img src="assets/alt.logo.png"></a>
+      <a href="https://punecottoncompany.com/" target="_blank"><img src="assets/pune cotton comp.jpeg"></a>
+      <a href="#"><img src="assets/phoenix systems.png"></a>
+      <a href="https://learnac.com/" target="_blank"><img src="assets/ninad.png"></a>
+    </marquee>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-column branding">
+        <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+        <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone technology.</p>
+      </div>
+
+      <div class="footer-column contact">
+        <h4>Contact Us</h4>
+        <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a></p>
+        <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+        <p><strong>Phone:</strong> Aditya S.: +91 8626080604</p>
+      </div>
+
+      <div class="footer-column social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img src="assets/insta.png" alt="Instagram"></a>
+          <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img src="assets/linked in.png" alt="LinkedIn"></a>
+        </div>
+        <p><strong>Location:</strong><br>Sr.No. 18, Plot No. 5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar, Pune 411052, Maharashtra, India.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
