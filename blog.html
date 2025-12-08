@@ -19,220 +19,846 @@
       --bg-card: #111318;
     }
 
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lexend', sans-serif;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
     body {
       color: var(--text-light);
-      background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.95)),url("assets/blog-bg-drones.jpg");
-      background-size: cover; background-position: center; background-attachment: fixed;
+      overflow-x: hidden;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+        url("assets/blog-bg-drones.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
     }
 
-    /* Header */
+    /* ===== Header ===== */
     .header {
-      position: sticky; top: 0; z-index: 1000;
-      padding: 12px 0; background: rgba(0,0,0,0.75); border-bottom:2px solid var(--brand-maroon);
-    }
-    .nav {display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;}
-    .brand img {height:50px;border-radius:8px;}
-    .title{font-size:1.3em;font-weight:700;color:var(--brand-yellow);}
-    .nav a {color:#fff;text-decoration:none;font-weight:500;padding:8px 12px;transition:0.3s;}
-    .nav a:hover, .nav a.active {color:var(--brand-yellow);border-bottom:2px solid var(--brand-yellow);}
-
-    /* Layout */
-    .page-wrap{max-width:1100px;margin:40px auto;padding:0 20px;}
-    .page-title h1{color:var(--brand-yellow);font-size:2.1rem;}
-    .featured-card{
-      display:grid;grid-template-columns:1.1fr 1.4fr;background:#08090e;border-radius:14px;overflow:hidden;
-      box-shadow:0 20px 40px rgba(0,0,0,0.85);margin-top:20px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .featured-image img{width:100%;height:100%;object-fit:cover;transition:0.4s;} 
-    .featured-card:hover img{transform:scale(1.06);}
-    .featured-content{padding:22px 26px;display:flex;flex-direction:column;justify-content:space-between;}
-
-    /* Featured card bottom */
-    .card-bottom{border-top:1px solid rgba(247,194,117,0.22);padding-top:10px;display:flex;
-                 justify-content:space-between;align-items:center;flex-wrap:wrap;}
-    .card-actions{display:flex;gap:12px;font-size:0.82rem;}
-    .card-actions button{background:none;border:none;color:var(--text-muted);cursor:pointer;}
-    .like-count-card{font-size:0.84rem;color:var(--text-muted);}
-    #like-btn-card.liked{color:var(--brand-yellow);font-weight:600;}
-
-    /* FULL BLOG */
-    .blog-post{display:none;background:#08090e;border-radius:14px;margin-top:30px;padding:22px;
-               border:1px solid rgba(247,194,117,0.25);}
-    .blog-post h2{color:var(--brand-yellow);}
-    .blog-image-inline{max-width:500px;width:100%;border-radius:10px;margin:15px auto;display:block;}
-
-    /* Like / Share / Comment inside post */
-    .engagement-bar{display:flex;justify-content:space-between;margin-top:15px;border-top:1px solid rgba(247,194,117,0.3);padding-top:12px;}
-    .engagement-buttons button{padding:6px 12px;border-radius:999px;border:1px solid rgba(247,194,117,0.6);background:none;color:white;}
-    #like-btn-full.liked{background:var(--brand-yellow);color:black;}
-
-    /* COMMENTS */
-    .comment-form input,.comment-form textarea{
-      width:100%;padding:8px;border-radius:8px;margin-top:6px;background:#0c0c0c;color:white;
-      border:1px solid rgba(247,194,117,0.3);
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .comment-form button{margin-top:6px;background:var(--brand-maroon);color:white;padding:6px 16px;border-radius:8px;border:none;}
-    .comment-list{list-style:none;margin-top:10px;}
-    .comment-list li{
-      background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:8px;margin-bottom:6px;
-      font-size:0.9rem;color:white;
-    }
-    .comment-list strong{color:var(--brand-yellow);}
-    .comment-timestamp{font-size:0.7rem;color:#aaa;display:block;margin-top:3px;}
 
-    .read-less button,#read-more-btn{color:var(--brand-yellow);background:none;border:none;cursor:pointer;font-weight:600;}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: #fff;
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    .nav a:hover {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    .nav a.active {
+      color: var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-yellow);
+    }
+
+    /* ===== Page Wrapper ===== */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      margin-bottom: 26px;
+    }
+
+    .page-title h1 {
+      font-size: 2.1rem;
+      color: var(--brand-yellow);
+      margin-bottom: 6px;
+    }
+
+    .page-title p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    /* ===== Featured Card (preview) ===== */
+    .featured-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .featured-card {
+      background: rgba(7, 8, 12, 0.98);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      min-height: 260px;
+    }
+
+    .featured-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform 0.4s ease;
+    }
+
+    .featured-card:hover .featured-image img {
+      transform: scale(1.06);
+    }
+
+    .featured-content {
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #10121a, #08090e);
+    }
+
+    .featured-meta {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .featured-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .featured-title span {
+      color: var(--brand-yellow);
+    }
+
+    .featured-excerpt {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .card-bottom {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(247, 194, 117, 0.22);
+      padding-top: 10px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+    }
+
+    .card-actions button,
+    .card-actions a {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+      font-size: 0.82rem;
+    }
+
+    .card-actions button:hover,
+    .card-actions a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .card-actions button.liked {
+      color: var(--brand-yellow);
+      font-weight: 600;
+    }
+
+    .read-more-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .read-more-link button {
+      background: none;
+      border: none;
+      color: var(--brand-yellow);
+      cursor: pointer;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+    }
+
+    .read-more-link button:hover {
+      text-decoration: underline;
+    }
+
+    .like-count-card {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== Full Blog Article ===== */
+    .blog-post {
+      margin-top: 30px;
+      background: rgba(5, 6, 10, 0.96);
+      border-radius: 14px;
+      padding: 22px 24px;
+      border: 1px solid rgba(247, 194, 117, 0.25);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+      display: none; /* hidden until Read More */
+    }
+
+    .blog-post h2 {
+      color: var(--brand-yellow);
+      margin-bottom: 6px;
+      font-size: 1.4rem;
+    }
+
+    .blog-meta {
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    /* MEDIUM-SIZE IMAGE INSIDE BLOG */
+    .blog-image-inline {
+      display: block;
+      width: 100%;
+      max-width: 480px;       /* medium width */
+      border-radius: 12px;
+      margin: 10px auto 18px; /* centered */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .blog-post p {
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .blog-post ul,
+    .blog-post ol {
+      margin-left: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .blog-post h3 {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+      color: var(--brand-yellow);
+    }
+
+    /* ===== Engagement Bar (inside article) ===== */
+    .engagement-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(247, 194, 117, 0.3);
+    }
+
+    .engagement-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .engagement-buttons button {
+      border-radius: 999px;
+      border: 1px solid rgba(247, 194, 117, 0.6);
+      background: transparent;
+      color: var(--text-light);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, border-color 0.2s;
+    }
+
+    .engagement-buttons button:hover {
+      background: rgba(247, 194, 117, 0.14);
+      border-color: var(--brand-yellow);
+      transform: translateY(-1px);
+    }
+
+    .engagement-buttons button.liked {
+      background: var(--brand-yellow);
+      color: #000;
+      border-color: var(--brand-yellow);
+    }
+
+    .like-count {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== Comments ===== */
+    .comments-section {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(247, 194, 117, 0.35);
+    }
+
+    .comments-section h4 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--brand-yellow);
+    }
+
+    .comment-form textarea {
+      width: 100%;
+      min-height: 70px;
+      border-radius: 10px;
+      border: 1px solid rgba(247, 194, 117, 0.4);
+      background: rgba(0, 0, 0, 0.75);
+      color: var(--text-light);
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+
+    .comment-form button {
+      margin-top: 6px;
+      border-radius: 999px;
+      border: none;
+      background: var(--brand-maroon);
+      color: #fff;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .comment-form button:hover {
+      background: var(--brand-yellow);
+      color: #000;
+      transform: translateY(-1px);
+    }
+
+    .comment-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .comment-list li {
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .comment-timestamp {
+      display: block;
+      font-size: 0.72rem;
+      color: rgba(224, 224, 224, 0.7);
+      margin-top: 2px;
+    }
+
+    .back-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.84rem;
+    }
+
+    .back-to-top a,
+    .read-less button {
+      color: var(--brand-yellow);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: inherit;
+    }
+
+    .back-to-top a:hover,
+    .read-less button:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 30px;
+      border-top: 2px solid var(--brand-maroon);
+    }
+
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1 1 250px;
+    }
+
+    .footer-column h4 {
+      color: var(--brand-yellow);
+      margin-bottom: 10px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+
+    .footer-column a:hover {
+      color: var(--brand-yellow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .social-links img {
+      height: 32px;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      filter: brightness(90%);
+    }
+
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: brightness(110%);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-image {
+        max-height: 260px;
+      }
+    }
   </style>
 </head>
 
 <body>
-<header class="header"><div class="nav">
-  <div class="brand"><img src="/assets/club-logo.jpg"><div><div class="title">TEAM VAJRA</div>
-  <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div></div></div>
-  <a href="/index.html">Home</a><a href="/achievements.html">Achievements</a>
-  <a href="/drones.html">Drones</a><a href="/gallery.html">Gallery</a>
-  <a href="/contact.html">Contact</a><a href="/team.html">Team</a>
-  <a class="active" href="/blog.html">Blogs</a></div></header>
-
-<main class="page-wrap" id="top">
-  <div class="page-title">
-    <h1>Flight Path ✈ Official TEAM VAJRA Blog</h1>
-    <p>Stories, builds, achievements & unseen flight logs from our hangar.</p>
-  </div>
-
-  <!-- Blog Card Preview -->
-  <section class="featured-card">
-    <div class="featured-image"><img src="assets/sky-no-limit-medals.jpg"></div>
-
-    <div class="featured-content">
-      <div>
-        <div class="featured-meta">Technoxian 9.0 · Race Recap</div>
-        <h2><span style="color:var(--brand-yellow)">The Sky's No Limit:</span> World Rank 3</h2>
-        <p>All India Rank 2 • World Rank 3 • Crash → Build → Fly Again  
-        A journey of grit, broken propellers & glory.</p>
-      </div>
-
-      <div class="card-bottom">
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
         <div>
-          <div class="like-count-card"><span id="like-count-card">0</span> Likes</div>
-          <div class="card-actions">
-            <button id="like-btn-card">❤️ Like</button>
-            <a href="javascript:void(0);" id="share-link-card">🔗 Share</a>
-            <a href="#comments" id="comment-link-card">💬 Comment</a>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html">Home</a>
+      <a href="/achievements.html">Achievements</a>
+      <a href="/drones.html">Drones</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/team.html">Team</a>
+      <a href="/blog.html" class="active">Blogs</a>
+    </div>
+  </header>
+
+  <main class="page-wrap" id="top">
+    <div class="page-title">
+      <h1>Flight Path: The Official Team Vajra Blog</h1>
+      <p>Race recaps, build logs, and behind-the-scenes stories from the Team Vajra hangar.</p>
+    </div>
+
+    <!-- FEATURED label + card preview -->
+    <div class="featured-label">Featured</div>
+    <section class="featured-card">
+      <div class="featured-image">
+        <img src="assets/sky-no-limit-medals.jpg" alt="Team Vajra members holding medals in a circle">
+      </div>
+      <div class="featured-content">
+        <div>
+          <div class="featured-meta">December 2025 · Race Recap · Technoxian 9.0</div>
+          <div class="featured-title">
+            <span>The Sky's No Limit:</span> How VAJRA Flew to World Rank 3
+          </div>
+          <p class="featured-excerpt">
+            A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit —
+            this is how VAJRA went from a campus drone club to securing All India Rank 2 and
+            World Rank 3 at TechnoXian 9.0. Here’s the journey behind those medals and what it
+            really took to stand on the global podium.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <div>
+            <div class="like-count-card">
+              <span id="like-count-card">0</span> likes
+            </div>
+            <div class="card-actions">
+              <button id="like-btn-card">❤️ Like</button>
+              <a href="javascript:void(0);" id="share-link-card">Share</a>
+              <a href="javascript:void(0);" id="comment-link-card">Post a Comment</a>
+            </div>
+          </div>
+          <div class="read-more-link">
+            <button id="read-more-btn">READ MORE</button>
           </div>
         </div>
-        <button id="read-more-btn">READ MORE</button>
+      </div>
+    </section>
+
+    <!-- FULL BLOG (hidden at first) -->
+    <article class="blog-post" id="full-blog">
+      <h2>The Sky's No Limit: How VAJRA Flew to World Rank 3</h2>
+      <div class="blog-meta">Published: December 2025 · Category: Race Recap</div>
+
+      <img src="assets/winner.jpg"
+           alt="Team VAJRA members holding their medals in a circle"
+           class="blog-image-inline">
+
+      <p>
+        What happens when a crazy idea meets pure grit? You get VAJRA. We're not just some
+        drone club; we're a family of dreamers, builders, and flyers who believe the sky is
+        our playground. At VAJRA, "innovation" means endless coffee-fueled nights, countless
+        test flights (and crashes!), a ton of hard work, and that electric rush when our
+        creations finally soar.
+      </p>
+
+      <p>
+        For us, TechnoXian 2025 wasn't just another competition. It was our chance to show the
+        world what we stand for: crazy teamwork, raw passion, and unyielding creativity.
+        Through sheer determination, we made our mark on one of the planet's toughest drone
+        competitions, proudly nabbing <strong>All India Rank 2</strong> and an incredible
+        <strong>World Rank 3</strong>.
+      </p>
+
+      <h3>TechnoXian: The Olympics of Robotics and Drones</h3>
+      <p>
+        TechnoXian, run by the All India Council for Robotics and Automation (AICRA), is
+        basically the Olympics for robotics and drones. It brings together innovators,
+        hobbyists, and pros from everywhere to push the limits in wild categories. We threw
+        ourselves into every challenge:
+      </p>
+      <ul>
+        <li>Drone Racing FPV Challenge</li>
+        <li>Search and Rescue Mission</li>
+        <li>Payload Delivery and Drone Soccer</li>
+      </ul>
+
+      <h3>Our Journey: Scrapes, Setbacks, and Soaring Success</h3>
+      <p>
+        Securing World Rank 3 definitely didn't happen overnight. For months, our lives were
+        all about drones. We obsessed over making them lightweight and aerodynamic, fine-tuning
+        every line of code for agility and stability. We tested, crashed, rebuilt, and
+        collaborated until we were blue in the face. We learned from every single failure and
+        celebrated every tiny breakthrough.
+      </p>
+
+      <h3>Making of Champions: A Real-World Grind</h3>
+      <p>
+        Building elite drones from basic parts is the ultimate test of smarts and toughness.
+        Our team dedicated months of their lives to this international stage—from convincing
+        sponsors to designing our own jerseys.
+      </p>
+      <p>
+        We hit countless roadblocks: broken parts, late-night rebuilds, and a lot of
+        frustration. But every challenge just made us more determined. The result? Our AIR 2
+        and World Rank 3 trophies are a testament to that grind. Every sleepless night, every
+        snapped propeller, every dead battery, and every successful flight forged our resolve
+        to make it on the global stage.
+      </p>
+
+      <h3>What Makes Us, Us?</h3>
+      <p>
+        At VAJRA, we don't just assemble drones; we build an experience that perfectly blends
+        technical skill with genuine camaraderie. Our passion and unity set us apart. We fly
+        not just to compete, but to represent the heart and spirit of our team.
+      </p>
+      <p>
+        With amazing guidance from our experienced seniors and faculty, we're constantly
+        raising the bar for the next generation.
+      </p>
+
+      <h3>The Future is Bright</h3>
+      <p>
+        Our win at TechnoXian 9.0 isn't just a shiny medal; it's a launchpad for the future.
+        The enthusiasm of our juniors, guided by the wisdom of our seniors, shows the growing
+        strength of our "family." This momentum fuels our ambition to keep innovating, push the
+        boundaries of drone tech, and proudly represent our institution globally.
+      </p>
+      <p>
+        For prospective members, VAJRA is more than a club. It's a home where curiosity meets
+        opportunity and passion becomes a superpower. Whether you're a total newbie or a tech
+        whiz, you're welcome here.
+      </p>
+      <p>
+        To all our supporters, friends, and fellow drone enthusiasts, stay tuned for what's
+        next! Follow our journey as we share behind-the-scenes moments, technical insights, and
+        the pure excitement of competition.
+      </p>
+      <p>
+        Together, we'll soar higher and redefine what's possible in the skies.
+      </p>
+
+      <!-- Like / Share / Comment inside article -->
+      <div class="engagement-bar">
+        <div class="engagement-buttons">
+          <button id="like-btn-full">❤️ Like</button>
+          <button id="share-btn-full">🔗 Share</button>
+        </div>
+        <div class="like-count">
+          <span id="like-count-full">0</span> likes
+        </div>
+      </div>
+
+      <div class="comments-section" id="comments">
+        <h4>Comments</h4>
+        <form class="comment-form" id="comment-form">
+          <textarea id="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+        <ul class="comment-list" id="comment-list"></ul>
+      </div>
+
+      <div class="back-row">
+        <div class="back-to-top">
+          <a href="#top">↑ Back to top</a>
+        </div>
+        <div class="read-less">
+          <button id="read-less-btn">READ LESS</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-column branding">
+        <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+        <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone technology.</p>
+      </div>
+
+      <div class="footer-column contact">
+        <h4>Contact Us</h4>
+        <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a></p>
+        <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+        <p><strong>Phone:</strong> Omkar B.: +91 8626080604</p>
+      </div>
+
+      <div class="footer-column social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img src="assets/insta.png" alt="Instagram"></a>
+          <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img src="assets/linked in.png" alt="LinkedIn"></a>
+        </div>
+        <p><strong>Location:</strong><br>Sr.No. 18, Plot No. 5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar, Pune 411052, Maharashtra, India.</p>
       </div>
     </div>
-  </section>
 
-  <!-- FULL BLOG EXPANDS HERE -->
-  <article class="blog-post" id="full-blog">
-    <img src="assets/winner.jpg" class="blog-image-inline">
-
-    <p><strong>Passion + Crashes + Rebuilds + Sleepless Nights.</strong>  
-    That’s how Team VAJRA flew from campus roots to a global podium.</p>
-
-    <h3>The Ranking</h3>
-    <p>🏆 All India Rank 2 | 🌍 World Rank 3 — Technoxian 9.0</p>
-
-    <h3>What We Faced:</h3>
-    <ul>
-      <li>FPV Drone Racing</li><li>Search & Rescue</li><li>Payload Delivery</li><li>Drone Soccer</li>
-    </ul>
-
-    <p>We crashed → rebuilt → tested again.  
-    We coded → flew → burned motors → flew again.</p>
-
-    <h3>What Defines VAJRA?</h3>
-    <p>We are not just engineers — we are pilots, creators, risk-takers.  
-    A team built on trust, adrenaline & precision.</p>
-
-    <!-- Like/Share Section -->
-    <div class="engagement-bar">
-      <div class="engagement-buttons">
-        <button id="like-btn-full">❤️ Like</button>
-        <button id="share-btn-full">🔗 Share</button>
-      </div>
-      <span id="like-count-full" style="font-size:0.9rem;"></span>
+    <div class="footer-bottom">
+      <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
     </div>
+  </footer>
 
-    <!-- Comments -->
-    <br>
-    <h3>💬 Comments (<span id="comment-count">0</span>)</h3>
-    <div class="comment-form">
-      <input type="text" id="comment-name" placeholder="Your Name" required>
-      <textarea id="comment-text" placeholder="Write your thoughts..." required></textarea>
-      <button id="comment-submit">Post</button>
-    </div>
-
-    <ul id="comment-list"></ul>
-
-    <br>
-    <div class="read-less"><button id="read-less-btn">READ LESS</button></div>
-  </article>
-</main>
-
-<footer style="text-align:center;padding:12px;margin-top:60px;color:#777;">© 2025 TEAM VAJRA</footer>
-
+  <!-- JS: Read More/Less, Like, Share, Comments -->
 <script>
-/* READ MORE / LESS */
-document.getElementById("read-more-btn").onclick=()=>{document.getElementById("full-blog").style.display="block";scrollTo(0,600);}
-document.getElementById("read-less-btn").onclick=()=>{document.getElementById("full-blog").style.display="none";scrollTo(0,0);}
+document.addEventListener("DOMContentLoaded", function () {
 
-/* LIKE SYSTEM (Shared Card + Blog) */
-let likes=localStorage.getItem("vajra_likes")||0;
-let liked=localStorage.getItem("vajra_liked")=="1";
+  /* ---------------- READ MORE / READ LESS ---------------- */
+  const readMoreBtn    = document.getElementById("read-more-btn");
+  const readLessBtn    = document.getElementById("read-less-btn");
+  const fullBlog       = document.getElementById("full-blog");
+  const topSection     = document.getElementById("top");
 
-function updateLikes(){
-  document.getElementById("like-count-card").innerText=likes;
-  document.getElementById("like-count-full").innerText=likes+" Likes";
-  document.getElementById("like-btn-card").style.color = liked ? "#f7c275" : "#fff";
-  document.getElementById("like-btn-full").style.background = liked ? "#f7c275":"none";
-}
-updateLikes();
+  readMoreBtn.onclick = () => {
+    fullBlog.style.display = "block";
+    fullBlog.scrollIntoView({ behavior: "smooth" });
+  };
 
-function toggleLike(){
-  liked=!liked; likes = liked ? Number(likes)+1 : Number(likes)-1;
-  localStorage.setItem("vajra_likes",likes);
-  localStorage.setItem("vajra_liked",liked?"1":"0");
-  updateLikes();
-}
-document.getElementById("like-btn-card").onclick=toggleLike;
-document.getElementById("like-btn-full").onclick=toggleLike;
+  readLessBtn.onclick = () => {
+    topSection.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => fullBlog.style.display = "none", 350);
+  };
 
-/* SHARE */
-function sharePost(){
-  navigator.share?navigator.share({title:"VAJRA Blog",url:location.href}):alert("Link Copied!");
-}
-document.getElementById("share-btn-full").onclick=sharePost;
-document.getElementById("share-link-card").onclick=sharePost;
 
-/* COMMENTS (with name + count) */
-function loadComments(){
-  let data=JSON.parse(localStorage.getItem("vajra_comments")||"[]");
-  document.getElementById("comment-count").innerText=data.length;
+  /* ---------------- LIKE LOGIC (shared both places) ---------------- */
+  const likeBtnCard    = document.getElementById("like-btn-card");
+  const likeBtnFull    = document.getElementById("like-btn-full");
+  const likeCountCard  = document.getElementById("like-count-card");
+  const likeCountFull  = document.getElementById("like-count-full");
 
-  let box=document.getElementById("comment-list"); box.innerHTML="";
-  data.forEach(c=>{
-    box.innerHTML+=`<li><strong>${c.name}</strong>: ${c.text}<span class="comment-timestamp">${c.time}</span></li>`;
-  });
-}
-loadComments();
+  const LIKE_KEY   = "vajra_blog_likes";
+  const LIKE_CHECK = "vajra_blog_liked";
 
-document.getElementById("comment-submit").onclick=()=>{
-  let name=document.getElementById("comment-name").value.trim();
-  let text=document.getElementById("comment-text").value.trim();
-  if(!name||!text)return alert("Write something!");
+  let likes = parseInt(localStorage.getItem(LIKE_KEY) || "0");
+  let liked = localStorage.getItem(LIKE_CHECK) === "1";
 
-  let data=JSON.parse(localStorage.getItem("vajra_comments")||"[]");
-  data.push({name,text,time:new Date().toLocaleString()});
-  localStorage.setItem("vajra_comments",JSON.stringify(data));
-  document.getElementById("comment-name").value="";
-  document.getElementById("comment-text").value="";
-  loadComments();
-};
+  function updateLikeUI(){
+    likeCountCard.textContent = likes;
+    likeCountFull.textContent = likes;
+
+    likeBtnCard.classList.toggle("liked", liked);
+    likeBtnFull.classList.toggle("liked", liked);
+  }
+
+  function toggleLike(){
+    if(liked){
+      likes = Math.max(0, likes-1);
+      liked = false;
+    } else {
+      likes++;
+      liked = true;
+    }
+    localStorage.setItem(LIKE_KEY, likes);
+    localStorage.setItem(LIKE_CHECK, liked ? "1" : "0");
+    updateLikeUI();
+  }
+
+  likeBtnCard.onclick = toggleLike;
+  likeBtnFull.onclick = toggleLike;
+  updateLikeUI();
+
+
+  /* ---------------- SHARE SYSTEM ---------------- */
+  const shareLinkCard = document.getElementById("share-link-card");
+  const shareBtnFull  = document.getElementById("share-btn-full");
+
+  function sharePost(){
+    navigator.clipboard.writeText(window.location.href);
+    alert("🔗 Blog link copied to clipboard!");
+  }
+
+  shareLinkCard.onclick = sharePost;
+  shareBtnFull.onclick  = sharePost;
+
+
+  /* ---------------- COMMENT SYSTEM ---------------- */
+  const commentLinkCard = document.getElementById("comment-link-card");
+  const commentForm     = document.getElementById("comment-form");
+  const commentInput    = document.getElementById("comment-input");
+  const commentList     = document.getElementById("comment-list");
+  const commentsSection = document.getElementById("comments");
+
+  const COMMENT_KEY = "vajra_blog_comments";
+
+  function renderComments(){
+    const comments = JSON.parse(localStorage.getItem(COMMENT_KEY) || "[]");
+    commentList.innerHTML = "";
+
+    comments.forEach(c =>{
+      let li = document.createElement("li");
+      li.innerHTML =
+        `<strong>${c.name}</strong> — ${c.text}<br>
+         <span class='comment-timestamp'>${c.time}</span>`;
+      commentList.appendChild(li);
+    });
+
+    document.querySelector(".comments-section h4").innerText =
+      `Comments (${comments.length})`;   // 🔥 shows count
+  }
+  renderComments();
+
+  commentForm.onsubmit = (e)=>{
+    e.preventDefault();
+    const text = commentInput.value.trim();
+    if(text === "") return;
+
+    const name = prompt("Enter your name:") || "Anonymous";
+    const time = new Date().toLocaleString();
+
+    let comments = JSON.parse(localStorage.getItem(COMMENT_KEY) || "[]");
+    comments.push({name,text,time});
+    localStorage.setItem(COMMENT_KEY,JSON.stringify(comments));
+
+    commentInput.value="";
+    renderComments();
+  };
+
+
+  /* ----- click comment button on card → auto open blog ----- */
+  commentLinkCard.onclick = ()=>{
+    fullBlog.style.display="block";
+    setTimeout(()=>commentsSection.scrollIntoView({behavior:"smooth"}),300);
+  };
+
+});
 </script>
 </body>
 </html>
