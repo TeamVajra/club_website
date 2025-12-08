@@ -312,9 +312,11 @@ body::before {
     <div class="row">
       <div class="col card">
         <h4>Send us a Message</h4>
-   <form
+  <form
         method="POST"
         action="https://formspree.io/f/xzznavzp">
+                <label>Name</label><br>
+                <input name="name" required><br>
                 <label>
                   Your email:
                  <input type="email" name="email">
@@ -324,15 +326,8 @@ body::before {
                   <textarea name="message"></textarea>
                 </label>
                 <!-- your other form fields go here -->
-               <button type="submit">Send</button>
-      </form>
-          <label>Name</label><br>
-          <input name="name" required><br>
-          <label style="margin-top:8px">Email</label><br>
-          <input name="email" type="email" required><br>
-          <label style="margin-top:8px">Message</label><br>
-          <textarea name="message" required></textarea><br>
-          <button class="btn" type="submit" style="margin-top:10px">Send Message</button>
+               <button class="btn" type="submit" style="margin-top:10px">Send Message</button>
+              
         </form>
       </div>
 
@@ -389,6 +384,7 @@ body::before {
 
 </body>
 </html>
+
 
 
 
