@@ -568,7 +568,7 @@
             <span>The Sky's No Limit:</span> How VAJRA Flew to World Rank 3
           </div>
           <p class="featured-excerpt">
-            A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit —
+            A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit — 
             this is how VAJRA went from a campus drone club to securing All India Rank 2 and
             World Rank 3 at TechnoXian 9.0. Here’s the journey behind those medals and what it
             really took to stand on the global podium.
@@ -773,6 +773,30 @@
 
   <!-- JS: Read More/Less, Like, Share, Comments, Google Login -->
   <script>
+    // Global Google login state & callback (now truly global for GSI)
+    let loggedUser = null;
+
+    function jwt_decode(token) {
+      return JSON.parse(atob(token.split(".")[1]));
+    }
+
+    window.onGoogleSignIn = function (response) {
+      try {
+        const data = jwt_decode(response.credential);
+        loggedUser = {
+          name: data.name,
+          email: data.email,
+          picture: data.picture
+        };
+        const status = document.getElementById("user-status");
+        if (status) {
+          status.innerHTML = "Logged in as <b>" + loggedUser.name + "</b>";
+        }
+      } catch (e) {
+        console.error("Failed to decode Google token", e);
+      }
+    };
+
     document.addEventListener("DOMContentLoaded", function () {
       /* ---------------- READ MORE / READ LESS ---------------- */
       const readMoreBtn = document.getElementById("read-more-btn");
@@ -791,32 +815,6 @@
           fullBlog.style.display = "none";
         }, 350);
       };
-
-      /* ---------------- GOOGLE LOGIN → COMMENT NAME FETCHER ---------------- */
-      let loggedUser = null;
-
-      // Expose Google callback globally
-      window.onGoogleSignIn = function (response) {
-        try {
-          const data = jwt_decode(response.credential);
-          loggedUser = {
-            name: data.name,
-            email: data.email,
-            picture: data.picture
-          };
-          const status = document.getElementById("user-status");
-          if (status) {
-            status.innerHTML = "Logged in as <b>" + loggedUser.name + "</b>";
-          }
-        } catch (e) {
-          console.error("Failed to decode Google token", e);
-        }
-      };
-
-      // small helper for decoding Google credential token
-      function jwt_decode(token) {
-        return JSON.parse(atob(token.split(".")[1]));
-      }
 
       /* ---------------- LIKE LOGIC (shared both places) ---------------- */
       const likeBtnCard    = document.getElementById("like-btn-card");
@@ -924,6 +922,13 @@
           e.preventDefault();
           const text = commentInput.value.trim();
           if (!text) return;
+
+          // 🔒 Require Google sign-in before posting a comment
+          if (!loggedUser) {
+            alert("Please sign in with Google before posting a comment.");
+            return;
+          }
+
           saveComment(text);
           commentInput.value = "";
         });
