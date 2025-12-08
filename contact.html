@@ -312,7 +312,7 @@ body::before {
     <div class="row">
       <div class="col card">
         <h4>Send us a Message</h4>
-  <form
+  <form id="contact-form"
         method="POST"
         action="https://formspree.io/f/xzznavzp">
                 <label>Name</label><br>
@@ -329,6 +329,7 @@ body::before {
                <button class="btn" type="submit" style="margin-top:10px">Send Message</button>
               
         </form>
+         <p id="form-status" style="margin-top:8px;color:#0f0;"></p>
       </div>
 
       <div class="col card">
@@ -382,8 +383,40 @@ body::before {
     </div>
   </footer>
 
+<script>
+const form = document.getElementById('contact-form');
+const status = document.getElementById('form-status');
+
+form.addEventListener('submit', async function (event) {
+  event.preventDefault(); // stop normal redirect
+
+  const data = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+
+    if (response.ok) {
+      form.reset();
+      status.style.color = '#0f0';
+      status.textContent = 'Message submitted successfully!';
+    } else {
+      status.style.color = '#f33';
+      status.textContent = 'There was a problem submitting the form.';
+    }
+  } catch (error) {
+    status.style.color = '#f33';
+    status.textContent = 'Network error. Please try again.';
+  }
+});
+</script>
+  
 </body>
 </html>
+
 
 
 
