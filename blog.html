@@ -763,114 +763,175 @@
     </div>
   </footer>
 
-  <!-- JS: Read More/Less, Like, Share, Comments, Google Login -->
-  <script>
-    // Make user available globally for module script
-    window.loggedUser = null;
 
-    function jwt_decode(token) {
-      return JSON.parse(atob(token.split(".")[1]));
-    }
-
-    window.onGoogleSignIn = function (response) {
-      try {
-        const data = jwt_decode(response.credential);
-        window.loggedUser = {
-          name: data.name,
-          email: data.email,
-          picture: data.picture
-        };
-        const status = document.getElementById("user-status");
-        if (status) {
-          status.innerHTML = "Logged in as <b>" + window.loggedUser.name + "</b>";
-        }
-        // Dispatch an event so module script can react
-        window.dispatchEvent(new Event('vajra:auth-changed'));
-      } catch (e) {
-        console.error("Failed to decode Google token", e);
-      }
-    };
-  </script>
 
   <!-- Firebase + Firestore module: handles real-time likes & comments -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import {
-      getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc,
-      increment, collection, addDoc, onSnapshot, query, orderBy,
-      runTransaction
-    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+<script type="module">
+  // Diagnostic banner so we know the module script runs
+  console.log("🔥 Firebase module script loaded");
 
-    // ---------- REPLACED WITH YOUR CONFIG (you already gave this) ----------
-    const firebaseConfig = {
-      apiKey: "AIzaSyChvColRVokPBbAOiXv8P26ScRyDxPJI2w",
-      authDomain: "team-vajra.firebaseapp.com",
-      projectId: "team-vajra",
-      storageBucket: "team-vajra.firebasestorage.app",
-      messagingSenderId: "865557876116",
-      appId: "1:865557876116:web:9f0ee78cee3c157df75381",
-      measurementId: "G-TN5CL22RSH"
-    };
-    // ----------------------------------------------------------------------
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc, setDoc,
+    collection, addDoc, onSnapshot, query, orderBy, runTransaction
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  import {
+    getAuth,
+    signInWithCredential,
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signOut as firebaseSignOut
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-    // Identifier for this post (used as collection/document keys)
-    const POST_ID = "technoXian_9_world_rank_3";
+  // ---------- FIREBASE CONFIG ----------
+  const firebaseConfig = {
+    apiKey: "AIzaSyChvColRVokPBbAOiXv8P26ScRyDxPJI2w",
+    authDomain: "team-vajra.firebaseapp.com",
+    projectId: "team-vajra",
+    storageBucket: "team-vajra.firebasestorage.app",
+    messagingSenderId: "865557876116",
+    appId: "1:865557876116:web:9f0ee78cee3c157df75381",
+    measurementId: "G-TN5CL22RSH"
+  };
+  // -------------------------------------
 
-    // DOM elements
-    const likeBtnCard   = document.getElementById("like-btn-card");
-    const likeBtnFull   = document.getElementById("like-btn-full");
-    const likeCountCard = document.getElementById("like-count-card");
-    const likeCountFull = document.getElementById("like-count-full");
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-    const commentForm   = document.getElementById("comment-form");
-    const commentInput  = document.getElementById("comment-input");
-    const commentList   = document.getElementById("comment-list");
+  // Debug helper
+  function log(...args) { console.log("[VAJRA DEBUG]", ...args); }
 
-    const commentLinkCard = document.getElementById("comment-link-card");
-    const commentsSection = document.getElementById("comments");
-    const fullBlog = document.getElementById("full-blog");
-
-    // Firestore refs
-    const likesDocRef = doc(db, "blogMeta", POST_ID); // stores { count: number }
-    const userLikesCollection = (userIdEncoded) => doc(db, "blogMeta", POST_ID, "userLikes", userIdEncoded);
-    const commentsCollectionRef = collection(db, "blogComments_" + POST_ID);
-
-    // UTIL: encode user id (email) for doc ID
-    function encEmail(e) {
-      return encodeURIComponent(e).replace(/\./g, '%2E');
+  // Mirror Firebase Auth state to window.loggedUser and UI
+  onAuthStateChanged(auth, (user) => {
+    const statusEl = document.getElementById("user-status");
+    if (user) {
+      window.loggedUser = {
+        name: user.displayName || null,
+        email: user.email || null,
+        picture: user.photoURL || null,
+        uid: user.uid
+      };
+      if (statusEl) statusEl.innerHTML = "Logged in as <b>" + (user.displayName || user.email) + "</b>";
+      log("Firebase Auth signed in:", window.loggedUser);
+      // notify rest of app
+      window.dispatchEvent(new Event('vajra:auth-changed'));
+    } else {
+      window.loggedUser = null;
+      if (statusEl) statusEl.innerHTML = "Not logged in";
+      log("Firebase Auth signed out");
+      window.dispatchEvent(new Event('vajra:auth-changed'));
     }
+  });
 
-    // Initialize likes doc if absent, and attach realtime listener for count
-    async function initLikes() {
+  // Exchange GSI token into Firebase Auth
+  // GSI calls global: window.onGoogleSignIn(response)
+  window.onGoogleSignIn = async function (response) {
+    try {
+      if (!response || !response.credential) {
+        console.error("[VAJRA] GSI response missing credential", response);
+        return;
+      }
+      log("GSI credential received — exchanging for Firebase credential...");
+      const idToken = response.credential;
+      const firebaseCred = GoogleAuthProvider.credential(idToken);
+      await signInWithCredential(auth, firebaseCred);
+      log("[VAJRA] Signed in to Firebase using GSI token.");
+    } catch (err) {
+      console.error("[VAJRA ERROR] signInWithCredential failed:", err);
+      // As a fallback, try to decode token for UI (non-Firebase). This keeps UI responsive but won't satisfy Firestore rules.
+      try {
+        const payload = JSON.parse(atob(response.credential.split(".")[1]));
+        window.loggedUser = { name: payload.name, email: payload.email, picture: payload.picture };
+        const status = document.getElementById("user-status");
+        if (status) status.innerHTML = "Logged in as <b>" + (window.loggedUser.name || window.loggedUser.email) + "</b>";
+        window.dispatchEvent(new Event('vajra:auth-changed'));
+      } catch (e) {
+        console.error("Fallback decode failed", e);
+      }
+      alert("Sign-in failed. Check console for details.");
+    }
+  };
+
+  // Optional sign out for debugging
+  window.vajraSignOut = async function () {
+    try {
+      await firebaseSignOut(auth);
+      log("[VAJRA] user signed out.");
+    } catch (err) {
+      console.error("[VAJRA ERROR] signOut failed:", err);
+    }
+  };
+
+  // ---------- POST IDENTIFIER ----------
+  const POST_ID = "technoXian_9_world_rank_3";
+
+  // DOM elements
+  const likeBtnCard   = document.getElementById("like-btn-card");
+  const likeBtnFull   = document.getElementById("like-btn-full");
+  const likeCountCard = document.getElementById("like-count-card");
+  const likeCountFull = document.getElementById("like-count-full");
+
+  const commentForm   = document.getElementById("comment-form");
+  const commentInput  = document.getElementById("comment-input");
+  const commentList   = document.getElementById("comment-list");
+
+  const commentLinkCard = document.getElementById("comment-link-card");
+  const commentsSection = document.getElementById("comments");
+  const fullBlog = document.getElementById("full-blog");
+
+  // Firestore refs
+  const likesDocRef = doc(db, "blogMeta", POST_ID); // stores { count: number }
+  const userLikesCollection = (userIdEncoded) => doc(db, "blogMeta", POST_ID, "userLikes", userIdEncoded);
+  const commentsCollectionRef = collection(db, "blogComments_" + POST_ID);
+
+  // UTIL: encode user id (email) for doc ID
+  function encEmail(e) {
+    return encodeURIComponent(e).replace(/\./g, '%2E');
+  }
+
+  // DIAGNOSTIC initLikes() with error callbacks
+  async function initLikes() {
+    try {
+      log("initLikes starting...");
       const snap = await getDoc(likesDocRef);
+      log("getDoc(likesDocRef) exists?", snap.exists());
       if (!snap.exists()) {
+        log("likesDoc absent — creating with count:0");
         await setDoc(likesDocRef, { count: 0 });
       }
 
-      // Real-time listener: update counts whenever meta changes
+      // Real-time listener with error callback
       onSnapshot(likesDocRef, (s) => {
         if (s.exists()) {
           const data = s.data();
           const c = data.count || 0;
           if (likeCountCard) likeCountCard.textContent = c;
           if (likeCountFull) likeCountFull.textContent = c;
+          log("onSnapshot: likes count", c);
+        } else {
+          log("onSnapshot: doc not found");
         }
+      }, (error) => {
+        console.error("[VAJRA ERROR] likes onSnapshot failed:", error);
+        alert("Realtime likes listener failed: " + (error && error.message || error));
       });
 
       // If user already signed-in, update their like UI
-      // Listen for auth change event fired in global script
       window.addEventListener('vajra:auth-changed', updateUserLikeUI);
-      updateUserLikeUI(); // also call once now (in case already logged)
+      updateUserLikeUI();
+    } catch (err) {
+      console.error("[VAJRA ERROR] initLikes failed:", err);
+      alert("Failed to initialize likes (check console).");
     }
+  }
 
-    // Update the like button state for current signed-in user (if any)
-    async function updateUserLikeUI() {
+  // Update the like button state for current signed-in user (if any)
+  async function updateUserLikeUI() {
+    try {
       const user = window.loggedUser;
-      if (!user) {
-        // clear liked class
+      if (!user || !user.email) {
         if (likeBtnCard) likeBtnCard.classList.remove("liked");
         if (likeBtnFull) likeBtnFull.classList.remove("liked");
         return;
@@ -881,48 +942,50 @@
       const liked = s.exists();
       if (likeBtnCard) likeBtnCard.classList.toggle("liked", liked);
       if (likeBtnFull) likeBtnFull.classList.toggle("liked", liked);
+      log("updateUserLikeUI — liked:", liked);
+    } catch (err) {
+      console.error("[VAJRA ERROR] updateUserLikeUI failed:", err);
     }
+  }
 
-    // Toggle like (requires Google sign-in)
-    async function toggleLikeFirestore() {
-      const user = window.loggedUser;
-      if (!user || !user.email) {
-        alert("Please sign in with Google before liking the post.");
-        return;
-      }
-      const uid = encEmail(user.email);
-      const userLikeRef = userLikesCollection(uid);
-
-      try {
-        await runTransaction(db, async (tx) => {
-          const metaSnap = await tx.get(likesDocRef);
-          if (!metaSnap.exists()) {
-            tx.set(likesDocRef, { count: 0 });
-          }
-          const userSnap = await tx.get(userLikeRef);
-
-          if (userSnap.exists()) {
-            // user already liked → remove like
-            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
-            const newCount = Math.max(0, currentCount - 1);
-            tx.update(likesDocRef, { count: newCount });
-            tx.delete(userLikeRef);
-          } else {
-            // add like
-            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
-            tx.update(likesDocRef, { count: currentCount + 1 });
-            tx.set(userLikeRef, { email: user.email, name: user.name || null, time: Date.now() });
-          }
-        });
-        // post-transaction UI will be updated by onSnapshot and updateUserLikeUI
-      } catch (err) {
-        console.error("Like toggle failed:", err);
-        alert("Could not update like. Try again.");
-      }
+  // Toggle like (requires Firebase-authenticated user)
+  async function toggleLikeFirestore() {
+    const user = window.loggedUser;
+    if (!user || !user.email) {
+      alert("Please sign in with Google before liking the post.");
+      return;
     }
+    const uid = encEmail(user.email);
+    const userLikeRef = userLikesCollection(uid);
 
-    // Comments: realtime listener
-    function initCommentsListener() {
+    try {
+      await runTransaction(db, async (tx) => {
+        const metaSnap = await tx.get(likesDocRef);
+        if (!metaSnap.exists()) {
+          tx.set(likesDocRef, { count: 0 });
+        }
+        const userSnap = await tx.get(userLikeRef);
+
+        if (userSnap.exists()) {
+          const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
+          const newCount = Math.max(0, currentCount - 1);
+          tx.update(likesDocRef, { count: newCount });
+          tx.delete(userLikeRef);
+        } else {
+          const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
+          tx.update(likesDocRef, { count: currentCount + 1 });
+          tx.set(userLikeRef, { email: user.email, name: user.name || null, time: Date.now() });
+        }
+      });
+    } catch (err) {
+      console.error("Like toggle failed:", err);
+      alert("Could not update like. Try again.");
+    }
+  }
+
+  // Comments: realtime listener with error callback
+  function initCommentsListener() {
+    try {
       const q = query(commentsCollectionRef, orderBy("time", "asc"));
       onSnapshot(q, (snapshot) => {
         if (!commentList) return;
@@ -931,11 +994,7 @@
           const c = docSnap.data();
           const li = document.createElement("li");
           const time = new Date(c.time).toLocaleString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
+            day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
           });
           li.innerHTML =
             "<strong>" + (c.author || "Anonymous") + "</strong>: " +
@@ -943,68 +1002,74 @@
             '<span class="comment-timestamp">' + time + "</span>";
           commentList.appendChild(li);
         });
+        log("[VAJRA DEBUG] comments snapshot size:", snapshot.size);
+      }, (error) => {
+        console.error("[VAJRA ERROR] comments onSnapshot failed:", error);
+        alert("Comments realtime listener failed: " + (error && error.message || error));
       });
+    } catch (err) {
+      console.error("[VAJRA ERROR] initCommentsListener threw:", err);
     }
+  }
 
-    // Save comment (requires sign-in)
-    async function saveCommentToFirestore(text) {
-      const user = window.loggedUser;
-      if (!user || !user.email) {
+  // Save comment (requires Firebase-authenticated user)
+  async function saveCommentToFirestore(text) {
+    const user = window.loggedUser;
+    if (!user || !user.email) {
+      alert("Please sign in with Google before posting a comment.");
+      return;
+    }
+    try {
+      await addDoc(commentsCollectionRef, {
+        author: user.name || "Anonymous",
+        email: user.email,
+        text: text,
+        time: Date.now()
+      });
+    } catch (err) {
+      console.error("Failed to save comment:", err);
+      alert("Could not post comment. Try again.");
+    }
+  }
+
+  // Attach DOM events
+  if (likeBtnCard) likeBtnCard.addEventListener("click", toggleLikeFirestore);
+  if (likeBtnFull) likeBtnFull.addEventListener("click", toggleLikeFirestore);
+
+  if (commentForm) {
+    commentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = (commentInput && commentInput.value || "").trim();
+      if (!text) return;
+      // Require sign-in
+      if (!window.loggedUser) {
         alert("Please sign in with Google before posting a comment.");
         return;
       }
-      try {
-        await addDoc(commentsCollectionRef, {
-          author: user.name || "Anonymous",
-          email: user.email,
-          text: text,
-          time: Date.now()
-        });
-      } catch (err) {
-        console.error("Failed to save comment:", err);
-        alert("Could not post comment. Try again.");
-      }
-    }
+      await saveCommentToFirestore(text);
+      if (commentInput) commentInput.value = "";
+    });
+  }
 
-    // Attach DOM events
-    if (likeBtnCard) likeBtnCard.addEventListener("click", toggleLikeFirestore);
-    if (likeBtnFull) likeBtnFull.addEventListener("click", toggleLikeFirestore);
+  if (commentLinkCard) {
+    commentLinkCard.onclick = function () {
+      if (fullBlog) fullBlog.style.display = "block";
+      setTimeout(function () {
+        if (commentsSection) commentsSection.scrollIntoView({ behavior: "smooth" });
+      }, 200);
+    };
+  }
 
-    if (commentForm) {
-      commentForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const text = (commentInput && commentInput.value || "").trim();
-        if (!text) return;
-        // Require sign-in
-        if (!window.loggedUser) {
-          alert("Please sign in with Google before posting a comment.");
-          return;
-        }
-        await saveCommentToFirestore(text);
-        if (commentInput) commentInput.value = "";
-      });
-    }
+  // Listen for auth changes to update UI
+  window.addEventListener('vajra:auth-changed', updateUserLikeUI);
 
-    // If "Post a Comment" on card clicked → open blog & scroll to comments
-    if (commentLinkCard) {
-      commentLinkCard.onclick = function () {
-        if (fullBlog) fullBlog.style.display = "block";
-        setTimeout(function () {
-          if (commentsSection) commentsSection.scrollIntoView({ behavior: "smooth" });
-        }, 200);
-      };
-    }
+  // Initialize features
+  initLikes();
+  initCommentsListener();
 
-    // If auth changes (user logs in), update UI for like button state
-    window.addEventListener('vajra:auth-changed', updateUserLikeUI);
+  // End of module
+</script>
 
-    // Initialize features
-    initLikes();
-    initCommentsListener();
-
-    // Also update UI when page loads if already signed in via GSI
-    if (window.loggedUser) updateUserLikeUI();
-  </script>
 
   <!-- Your original front-end behaviors (read more, share, etc.) -->
   <script>
