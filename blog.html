@@ -5,7 +5,7 @@
   <title>TEAM VAJRA - Drone Club | Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" href="/assets/club-logo.jpg">
-    <!-- Google Identity Services -->
+  <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- Lexend Font -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -763,7 +763,53 @@
     </div>
   </footer>
 
+  <!-- Lightweight global GSI callback (always present) -->
+  <script>
+    // lightweight global callback — always present for GSI.
+    // decodes the GSI JWT for quick UI update, then calls module exchange if available.
+    window.loggedUser = null;
 
+    function jwt_decode(token) {
+      try {
+        return JSON.parse(atob(token.split(".")[1]));
+      } catch (e) {
+        console.error("jwt_decode failed", e);
+        return null;
+      }
+    }
+
+    window.onGoogleSignIn = function (response) {
+      try {
+        if (!response || !response.credential) {
+          console.error("GSI response missing credential", response);
+          return;
+        }
+        const payload = jwt_decode(response.credential);
+        if (!payload) return;
+
+        // quick UI-only sign-in (keeps UI responsive if module isn't ready)
+        window.loggedUser = {
+          name: payload.name,
+          email: payload.email,
+          picture: payload.picture
+        };
+        const status = document.getElementById("user-status");
+        if (status) status.innerHTML = "Logged in as <b>" + (window.loggedUser.name || window.loggedUser.email) + "</b>";
+
+        // If the module exposes an exchange function, call it to sign into Firebase
+        if (typeof window.exchangeGsiToFirebase === "function") {
+          window.exchangeGsiToFirebase(response.credential).catch(err => {
+            console.error("exchangeGsiToFirebase failed:", err);
+          });
+        }
+
+        // notify the rest of the page
+        window.dispatchEvent(new Event('vajra:auth-changed'));
+      } catch (e) {
+        console.error("onGoogleSignIn failed", e);
+      }
+    };
+  </script>
 
   <!-- Firebase + Firestore module: handles real-time likes & comments -->
 <script type="module">
@@ -825,32 +871,18 @@
     }
   });
 
-  // Exchange GSI token into Firebase Auth
-  // GSI calls global: window.onGoogleSignIn(response)
-  window.onGoogleSignIn = async function (response) {
+  // Expose a function that exchanges a GSI idToken for Firebase credential
+  window.exchangeGsiToFirebase = async function (idToken) {
     try {
-      if (!response || !response.credential) {
-        console.error("[VAJRA] GSI response missing credential", response);
-        return;
-      }
-      log("GSI credential received — exchanging for Firebase credential...");
-      const idToken = response.credential;
+      if (!idToken) throw new Error("missing idToken");
+      console.log("[VAJRA] exchanging GSI idToken with Firebase...");
       const firebaseCred = GoogleAuthProvider.credential(idToken);
       await signInWithCredential(auth, firebaseCred);
-      log("[VAJRA] Signed in to Firebase using GSI token.");
+      console.log("[VAJRA] Firebase sign-in success");
     } catch (err) {
-      console.error("[VAJRA ERROR] signInWithCredential failed:", err);
-      // As a fallback, try to decode token for UI (non-Firebase). This keeps UI responsive but won't satisfy Firestore rules.
-      try {
-        const payload = JSON.parse(atob(response.credential.split(".")[1]));
-        window.loggedUser = { name: payload.name, email: payload.email, picture: payload.picture };
-        const status = document.getElementById("user-status");
-        if (status) status.innerHTML = "Logged in as <b>" + (window.loggedUser.name || window.loggedUser.email) + "</b>";
-        window.dispatchEvent(new Event('vajra:auth-changed'));
-      } catch (e) {
-        console.error("Fallback decode failed", e);
-      }
-      alert("Sign-in failed. Check console for details.");
+      console.error("[VAJRA ERROR] exchangeGsiToFirebase failed:", err);
+      // rethrow so callers can detect failure if they want
+      throw err;
     }
   };
 
@@ -1069,7 +1101,6 @@
 
   // End of module
 </script>
-
 
   <!-- Your original front-end behaviors (read more, share, etc.) -->
   <script>
