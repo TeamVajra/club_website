@@ -765,8 +765,8 @@
 
   <!-- JS: Read More/Less, Like, Share, Comments, Google Login -->
   <script>
-    // Global Google login state & callback (now truly global for GSI)
-    let loggedUser = null;
+    // Make user available globally for module script
+    window.loggedUser = null;
 
     function jwt_decode(token) {
       return JSON.parse(atob(token.split(".")[1]));
@@ -775,22 +775,240 @@
     window.onGoogleSignIn = function (response) {
       try {
         const data = jwt_decode(response.credential);
-        loggedUser = {
+        window.loggedUser = {
           name: data.name,
           email: data.email,
           picture: data.picture
         };
         const status = document.getElementById("user-status");
         if (status) {
-          status.innerHTML = "Logged in as <b>" + loggedUser.name + "</b>";
+          status.innerHTML = "Logged in as <b>" + window.loggedUser.name + "</b>";
         }
+        // Dispatch an event so module script can react
+        window.dispatchEvent(new Event('vajra:auth-changed'));
       } catch (e) {
         console.error("Failed to decode Google token", e);
       }
     };
+  </script>
 
+  <!-- Firebase + Firestore module: handles real-time likes & comments -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc,
+      increment, collection, addDoc, onSnapshot, query, orderBy,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+    // ---------- REPLACED WITH YOUR CONFIG (you already gave this) ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyChvColRVokPBbAOiXv8P26ScRyDxPJI2w",
+      authDomain: "team-vajra.firebaseapp.com",
+      projectId: "team-vajra",
+      storageBucket: "team-vajra.firebasestorage.app",
+      messagingSenderId: "865557876116",
+      appId: "1:865557876116:web:9f0ee78cee3c157df75381",
+      measurementId: "G-TN5CL22RSH"
+    };
+    // ----------------------------------------------------------------------
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Identifier for this post (used as collection/document keys)
+    const POST_ID = "technoXian_9_world_rank_3";
+
+    // DOM elements
+    const likeBtnCard   = document.getElementById("like-btn-card");
+    const likeBtnFull   = document.getElementById("like-btn-full");
+    const likeCountCard = document.getElementById("like-count-card");
+    const likeCountFull = document.getElementById("like-count-full");
+
+    const commentForm   = document.getElementById("comment-form");
+    const commentInput  = document.getElementById("comment-input");
+    const commentList   = document.getElementById("comment-list");
+
+    const commentLinkCard = document.getElementById("comment-link-card");
+    const commentsSection = document.getElementById("comments");
+    const fullBlog = document.getElementById("full-blog");
+
+    // Firestore refs
+    const likesDocRef = doc(db, "blogMeta", POST_ID); // stores { count: number }
+    const userLikesCollection = (userIdEncoded) => doc(db, "blogMeta", POST_ID, "userLikes", userIdEncoded);
+    const commentsCollectionRef = collection(db, "blogComments_" + POST_ID);
+
+    // UTIL: encode user id (email) for doc ID
+    function encEmail(e) {
+      return encodeURIComponent(e).replace(/\./g, '%2E');
+    }
+
+    // Initialize likes doc if absent, and attach realtime listener for count
+    async function initLikes() {
+      const snap = await getDoc(likesDocRef);
+      if (!snap.exists()) {
+        await setDoc(likesDocRef, { count: 0 });
+      }
+
+      // Real-time listener: update counts whenever meta changes
+      onSnapshot(likesDocRef, (s) => {
+        if (s.exists()) {
+          const data = s.data();
+          const c = data.count || 0;
+          if (likeCountCard) likeCountCard.textContent = c;
+          if (likeCountFull) likeCountFull.textContent = c;
+        }
+      });
+
+      // If user already signed-in, update their like UI
+      // Listen for auth change event fired in global script
+      window.addEventListener('vajra:auth-changed', updateUserLikeUI);
+      updateUserLikeUI(); // also call once now (in case already logged)
+    }
+
+    // Update the like button state for current signed-in user (if any)
+    async function updateUserLikeUI() {
+      const user = window.loggedUser;
+      if (!user) {
+        // clear liked class
+        if (likeBtnCard) likeBtnCard.classList.remove("liked");
+        if (likeBtnFull) likeBtnFull.classList.remove("liked");
+        return;
+      }
+      const id = encEmail(user.email);
+      const userLikeDoc = userLikesCollection(id);
+      const s = await getDoc(userLikeDoc);
+      const liked = s.exists();
+      if (likeBtnCard) likeBtnCard.classList.toggle("liked", liked);
+      if (likeBtnFull) likeBtnFull.classList.toggle("liked", liked);
+    }
+
+    // Toggle like (requires Google sign-in)
+    async function toggleLikeFirestore() {
+      const user = window.loggedUser;
+      if (!user || !user.email) {
+        alert("Please sign in with Google before liking the post.");
+        return;
+      }
+      const uid = encEmail(user.email);
+      const userLikeRef = userLikesCollection(uid);
+
+      try {
+        await runTransaction(db, async (tx) => {
+          const metaSnap = await tx.get(likesDocRef);
+          if (!metaSnap.exists()) {
+            tx.set(likesDocRef, { count: 0 });
+          }
+          const userSnap = await tx.get(userLikeRef);
+
+          if (userSnap.exists()) {
+            // user already liked → remove like
+            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
+            const newCount = Math.max(0, currentCount - 1);
+            tx.update(likesDocRef, { count: newCount });
+            tx.delete(userLikeRef);
+          } else {
+            // add like
+            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
+            tx.update(likesDocRef, { count: currentCount + 1 });
+            tx.set(userLikeRef, { email: user.email, name: user.name || null, time: Date.now() });
+          }
+        });
+        // post-transaction UI will be updated by onSnapshot and updateUserLikeUI
+      } catch (err) {
+        console.error("Like toggle failed:", err);
+        alert("Could not update like. Try again.");
+      }
+    }
+
+    // Comments: realtime listener
+    function initCommentsListener() {
+      const q = query(commentsCollectionRef, orderBy("time", "asc"));
+      onSnapshot(q, (snapshot) => {
+        if (!commentList) return;
+        commentList.innerHTML = "";
+        snapshot.forEach((docSnap) => {
+          const c = docSnap.data();
+          const li = document.createElement("li");
+          const time = new Date(c.time).toLocaleString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+          li.innerHTML =
+            "<strong>" + (c.author || "Anonymous") + "</strong>: " +
+            (c.text || "") +
+            '<span class="comment-timestamp">' + time + "</span>";
+          commentList.appendChild(li);
+        });
+      });
+    }
+
+    // Save comment (requires sign-in)
+    async function saveCommentToFirestore(text) {
+      const user = window.loggedUser;
+      if (!user || !user.email) {
+        alert("Please sign in with Google before posting a comment.");
+        return;
+      }
+      try {
+        await addDoc(commentsCollectionRef, {
+          author: user.name || "Anonymous",
+          email: user.email,
+          text: text,
+          time: Date.now()
+        });
+      } catch (err) {
+        console.error("Failed to save comment:", err);
+        alert("Could not post comment. Try again.");
+      }
+    }
+
+    // Attach DOM events
+    if (likeBtnCard) likeBtnCard.addEventListener("click", toggleLikeFirestore);
+    if (likeBtnFull) likeBtnFull.addEventListener("click", toggleLikeFirestore);
+
+    if (commentForm) {
+      commentForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const text = (commentInput && commentInput.value || "").trim();
+        if (!text) return;
+        // Require sign-in
+        if (!window.loggedUser) {
+          alert("Please sign in with Google before posting a comment.");
+          return;
+        }
+        await saveCommentToFirestore(text);
+        if (commentInput) commentInput.value = "";
+      });
+    }
+
+    // If "Post a Comment" on card clicked → open blog & scroll to comments
+    if (commentLinkCard) {
+      commentLinkCard.onclick = function () {
+        if (fullBlog) fullBlog.style.display = "block";
+        setTimeout(function () {
+          if (commentsSection) commentsSection.scrollIntoView({ behavior: "smooth" });
+        }, 200);
+      };
+    }
+
+    // If auth changes (user logs in), update UI for like button state
+    window.addEventListener('vajra:auth-changed', updateUserLikeUI);
+
+    // Initialize features
+    initLikes();
+    initCommentsListener();
+
+    // Also update UI when page loads if already signed in via GSI
+    if (window.loggedUser) updateUserLikeUI();
+  </script>
+
+  <!-- Your original front-end behaviors (read more, share, etc.) -->
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
-      /* ---------------- READ MORE / READ LESS ---------------- */
       const readMoreBtn = document.getElementById("read-more-btn");
       const readLessBtn = document.getElementById("read-less-btn");
       const fullBlog    = document.getElementById("full-blog");
@@ -808,43 +1026,6 @@
         }, 350);
       };
 
-      /* ---------------- LIKE LOGIC (shared both places) ---------------- */
-      const likeBtnCard    = document.getElementById("like-btn-card");
-      const likeBtnFull    = document.getElementById("like-btn-full");
-      const likeCountCard  = document.getElementById("like-count-card");
-      const likeCountFull  = document.getElementById("like-count-full");
-
-      const LIKE_KEY   = "vajra_blog_tx9_likes";
-      const LIKE_CHECK = "vajra_blog_tx9_liked";
-
-      let likes = parseInt(localStorage.getItem(LIKE_KEY) || "0", 10);
-      let liked = localStorage.getItem(LIKE_CHECK) === "1";
-
-      function updateLikeUI() {
-        likeCountCard.textContent = likes;
-        likeCountFull.textContent = likes;
-
-        likeBtnCard.classList.toggle("liked", liked);
-        likeBtnFull.classList.toggle("liked", liked);
-      }
-
-      function toggleLike() {
-        if (liked) {
-          likes = Math.max(0, likes - 1);
-          liked = false;
-        } else {
-          likes++;
-          liked = true;
-        }
-        localStorage.setItem(LIKE_KEY, String(likes));
-        localStorage.setItem(LIKE_CHECK, liked ? "1" : "0");
-        updateLikeUI();
-      }
-
-      likeBtnCard.onclick = toggleLike;
-      likeBtnFull.onclick = toggleLike;
-      updateLikeUI();
-
       /* ---------------- SHARE SYSTEM ---------------- */
       const shareLinkCard = document.getElementById("share-link-card");
       const shareBtnFull  = document.getElementById("share-btn-full");
@@ -860,84 +1041,8 @@
         }
       }
 
-      shareLinkCard.onclick = sharePost;
-      shareBtnFull.onclick  = sharePost;
-
-      /* ---------------- COMMENTS LOGIC ---------------- */
-      const commentForm     = document.getElementById("comment-form");
-      const commentInput    = document.getElementById("comment-input");
-      const commentList     = document.getElementById("comment-list");
-      const commentLinkCard = document.getElementById("comment-link-card");
-      const commentsSection = document.getElementById("comments");
-
-      const COMMENTS_KEY = "vajra_blog_tx9_comments";
-
-      function renderComments() {
-        if (!commentList) return;
-        commentList.innerHTML = "";
-
-        const stored = localStorage.getItem(COMMENTS_KEY);
-        const comments = stored ? JSON.parse(stored) : [];
-
-        comments.forEach(function (c) {
-          const li = document.createElement("li");
-          const time = new Date(c.time).toLocaleString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          });
-
-          li.innerHTML =
-            "<strong>" + c.author + "</strong>: " +
-            c.text +
-            '<span class="comment-timestamp">' + time + "</span>";
-          commentList.appendChild(li);
-        });
-      }
-
-      function saveComment(text) {
-        const stored = localStorage.getItem(COMMENTS_KEY);
-        const comments = stored ? JSON.parse(stored) : [];
-        comments.push({
-          author: (loggedUser && loggedUser.name) ? loggedUser.name : "Anonymous",
-          text: text,
-          time: Date.now()
-        });
-        localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
-        renderComments();
-      }
-
-      if (commentForm) {
-        commentForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const text = commentInput.value.trim();
-          if (!text) return;
-
-          // 🔒 Require Google sign-in before posting a comment
-          if (!loggedUser) {
-            alert("Please sign in with Google before posting a comment.");
-            return;
-          }
-
-          saveComment(text);
-          commentInput.value = "";
-        });
-      }
-
-      // Load existing comments on page load
-      renderComments();
-
-      /* ----- click "Post a Comment" on card → open blog & scroll to comments ----- */
-      if (commentLinkCard) {
-        commentLinkCard.onclick = function () {
-          fullBlog.style.display = "block";
-          setTimeout(function () {
-            commentsSection.scrollIntoView({ behavior: "smooth" });
-          }, 200);
-        };
-      }
+      if (shareLinkCard) shareLinkCard.onclick = sharePost;
+      if (shareBtnFull) shareBtnFull.onclick  = sharePost;
     });
   </script>
 </body>
