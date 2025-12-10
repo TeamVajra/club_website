@@ -123,6 +123,8 @@
       margin-bottom: 8px;
     }
 
+    .featured-block { margin-bottom: 18px; } /* wrapper for each blog */
+
     .featured-card {
       background: rgba(7, 8, 12, 0.98);
       border-radius: 14px;
@@ -548,187 +550,316 @@
 
     <!-- FEATURED label + card preview -->
     <div class="featured-label">Featured</div>
-    <section class="featured-card">
-      <div class="featured-image">
-        <img src="assets/sky-no-limit-medals.jpg" alt="Team Vajra members holding medals in a circle">
-      </div>
-      <div class="featured-content">
-        <div>
-          <div class="featured-meta">December 2025 · Race Recap · Technoxian 9.0</div>
-          <div class="featured-title">
-            <span>The Sky's No Limit:</span> How VAJRA Flew to World Rank 3
-          </div>
-          <p class="featured-excerpt">
-            A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit —
-            this is how VAJRA went from a campus drone club to securing All India Rank 2 and
-            World Rank 3 at TechnoXian 9.0. Here’s the journey behind those medals and what it
-            really took to stand on the global podium.
-          </p>
-        </div>
 
-        <div class="card-bottom">
+    <!-- === BLOG BLOCK: TechnoXian post (converted to data-driven block) === -->
+    <div class="featured-block" data-post-id="technoXian_9_world_rank_3">
+      <section class="featured-card">
+        <div class="featured-image">
+          <img src="assets/sky-no-limit-medals.jpg" alt="Team Vajra members holding medals in a circle">
+        </div>
+        <div class="featured-content">
           <div>
-            <div class="like-count-card">
-              <span id="like-count-card">0</span> likes
+            <div class="featured-meta">December 2025 · Race Recap · Technoxian 9.0</div>
+            <div class="featured-title">
+              <span>The Sky's No Limit:</span> How VAJRA Flew to World Rank 3
             </div>
-            <div class="card-actions">
-              <button id="like-btn-card">❤️ Like</button>
-              <a href="javascript:void(0);" id="share-link-card">Share</a>
-              <a href="javascript:void(0);" id="comment-link-card">Post a Comment</a>
+            <p class="featured-excerpt">
+              A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit —
+              this is how VAJRA went from a campus drone club to securing All India Rank 2 and
+              World Rank 3 at TechnoXian 9.0. Here’s the journey behind those medals and what it
+              really took to stand on the global podium.
+            </p>
+          </div>
+
+          <div class="card-bottom">
+            <div>
+              <div class="like-count-card">
+                <span class="like-count" data-target="likes">0</span> likes
+              </div>
+              <div class="card-actions">
+                <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+                <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
+                <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+              </div>
+            </div>
+            <div class="read-more-link">
+              <button class="read-more-btn" data-action="read-more">READ MORE</button>
             </div>
           </div>
-          <div class="read-more-link">
-            <button id="read-more-btn">READ MORE</button>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FULL BLOG (hidden at first) -->
-    <article class="blog-post" id="full-blog">
-      <h2>The Sky's No Limit: How VAJRA Flew to World Rank 3</h2>
-      <div class="blog-meta">Published: December 2025 · Category: Race Recap</div>
+      <!-- FULL BLOG (hidden at first) -->
+      <article class="blog-post">
+        <h2>The Sky's No Limit: How VAJRA Flew to World Rank 3</h2>
+        <div class="blog-meta">Published: December 2025 · Category: Race Recap</div>
 
-      <img src="assets/winner.jpg"
-           alt="Team VAJRA members holding their medals in a circle"
-           class="blog-image-inline">
+        <img src="assets/winner.jpg"
+             alt="Team VAJRA members holding their medals in a circle"
+             class="blog-image-inline">
 
-      <p>
-        What happens when a crazy idea meets pure grit? You get VAJRA. We're not just some
-        drone club; we're a family of dreamers, builders, and flyers who believe the sky is
-        our playground. At VAJRA, "innovation" means endless coffee-fueled nights, countless
-        test flights (and crashes!), a ton of hard work, and that electric rush when our
-        creations finally soar.
-      </p>
-
-      <p>
-        For us, TechnoXian 2025 wasn't just another competition. It was our chance to show the
-        world what we stand for: crazy teamwork, raw passion, and unyielding creativity.
-        Through sheer determination, we made our mark on one of the planet's toughest drone
-        competitions, proudly nabbing <strong>All India Rank 2</strong> and an incredible
-        <strong>World Rank 3</strong>.
-      </p>
-
-      <h3>TechnoXian: The Olympics of Robotics and Drones</h3>
-      <p>
-        TechnoXian, run by the All India Council for Robotics and Automation (AICRA), is
-        basically the Olympics for robotics and drones. It brings together innovators,
-        hobbyists, and pros from everywhere to push the limits in wild categories. We threw
-        ourselves into every challenge:
-      </p>
-      <ul>
-        <li>Drone Racing FPV Challenge</li>
-        <li>Search and Rescue Mission</li>
-        <li>Payload Delivery and Drone Soccer</li>
-      </ul>
-
-      <h3>Our Journey: Scrapes, Setbacks, and Soaring Success</h3>
-      <p>
-        Securing World Rank 3 definitely didn't happen overnight. For months, our lives were
-        all about drones. We obsessed over making them lightweight and aerodynamic, fine-tuning
-        every line of code for agility and stability. We tested, crashed, rebuilt, and
-        collaborated until we were blue in the face. We learned from every single failure and
-        celebrated every tiny breakthrough.
-      </p>
-
-      <h3>Making of Champions: A Real-World Grind</h3>
-      <p>
-        Building elite drones from basic parts is the ultimate test of smarts and toughness.
-        Our team dedicated months of their lives to this international stage—from convincing
-        sponsors to designing our own jerseys.
-      </p>
-      <p>
-        We hit countless roadblocks: broken parts, late-night rebuilds, and a lot of
-        frustration. But every challenge just made us more determined. The result? Our AIR 2
-        and World Rank 3 trophies are a testament to that grind. Every sleepless night, every
-        snapped propeller, every dead battery, and every successful flight forged our resolve
-        to make it on the global stage.
-      </p>
-
-      <h3>What Makes Us, Us?</h3>
-      <p>
-        At VAJRA, we don't just assemble drones; we build an experience that perfectly blends
-        technical skill with genuine camaraderie. Our passion and unity set us apart. We fly
-        not just to compete, but to represent the heart and spirit of our team.
-      </p>
-      <p>
-        With amazing guidance from our experienced seniors and faculty, we're constantly
-        raising the bar for the next generation.
-      </p>
-
-      <h3>The Future is Bright</h3>
-      <p>
-        Our win at TechnoXian 9.0 isn't just a shiny medal; it's a launchpad for the future.
-        The enthusiasm of our juniors, guided by the wisdom of our seniors, shows the growing
-        strength of our "family." This momentum fuels our ambition to keep innovating, push the
-        boundaries of drone tech, and proudly represent our institution globally.
-      </p>
-      <p>
-        For prospective members, VAJRA is more than a club. It's a home where curiosity meets
-        opportunity and passion becomes a superpower. Whether you're a total newbie or a tech
-        whiz, you're welcome here.
-      </p>
-      <p>
-        To all our supporters, friends, and fellow drone enthusiasts, stay tuned for what's
-        next! Follow our journey as we share behind-the-scenes moments, technical insights, and
-        the pure excitement of competition.
-      </p>
-      <p>
-        Together, we'll soar higher and redefine what's possible in the skies.
-      </p>
-      <!-- Like / Share inside article -->
-      <div class="engagement-bar">
-        <div class="engagement-buttons">
-          <button id="like-btn-full">❤️ Like</button>
-          <button id="share-btn-full">🔗 Share</button>
-        </div>
-        <div class="like-count">
-          <span id="like-count-full">0</span> likes
-        </div>
-      </div>
-
-      <!-- COMMENTS SECTION WITH GOOGLE LOGIN -->
-      <div class="comments-section" id="comments">
-        <h4>Comments</h4>
-
-        <!-- Google Login UI -->
-        <div id="google-login-area" style="margin-bottom:10px;">
-          <div id="g_id_onload"
-               data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
-               data-callback="onGoogleSignIn"
-               data-auto_prompt="false">
-          </div>
-
-          <div class="g_id_signin"
-               data-type="standard"
-               data-size="medium"
-               data-theme="filled_black"
-               data-text="Sign in with Google"
-               data-shape="pill">
-          </div>
-        </div>
-
-        <p id="user-status" style="font-size:14px;color:#f7c275;margin-top:5px;">
-          Not logged in
+        <p>
+          What happens when a crazy idea meets pure grit? You get VAJRA. We're not just some
+          drone club; we're a family of dreamers, builders, and flyers who believe the sky is
+          our playground. At VAJRA, "innovation" means endless coffee-fueled nights, countless
+          test flights (and crashes!), a ton of hard work, and that electric rush when our
+          creations finally soar.
         </p>
 
-        <form class="comment-form" id="comment-form">
-          <textarea id="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
-          <button type="submit">Post Comment</button>
-        </form>
+        <p>
+          For us, TechnoXian 2025 wasn't just another competition. It was our chance to show the
+          world what we stand for: crazy teamwork, raw passion, and unyielding creativity.
+          Through sheer determination, we made our mark on one of the planet's toughest drone
+          competitions, proudly nabbing <strong>All India Rank 2</strong> and an incredible
+          <strong>World Rank 3</strong>.
+        </p>
 
-        <ul class="comment-list" id="comment-list"></ul>
+        <h3>TechnoXian: The Olympics of Robotics and Drones</h3>
+        <p>
+          TechnoXian, run by the All India Council for Robotics and Automation (AICRA), is
+          basically the Olympics for robotics and drones. It brings together innovators,
+          hobbyists, and pros from everywhere to push the limits in wild categories. We threw
+          ourselves into every challenge:
+        </p>
+        <ul>
+          <li>Drone Racing FPV Challenge</li>
+          <li>Search and Rescue Mission</li>
+          <li>Payload Delivery and Drone Soccer</li>
+        </ul>
+
+        <h3>Our Journey: Scrapes, Setbacks, and Soaring Success</h3>
+        <p>
+          Securing World Rank 3 definitely didn't happen overnight. For months, our lives were
+          all about drones. We obsessed over making them lightweight and aerodynamic, fine-tuning
+          every line of code for agility and stability. We tested, crashed, rebuilt, and
+          collaborated until we were blue in the face. We learned from every single failure and
+          celebrated every tiny breakthrough.
+        </p>
+
+        <h3>Making of Champions: A Real-World Grind</h3>
+        <p>
+          Building elite drones from basic parts is the ultimate test of smarts and toughness.
+          Our team dedicated months of their lives to this international stage—from convincing
+          sponsors to designing our own jerseys.
+        </p>
+        <p>
+          We hit countless roadblocks: broken parts, late-night rebuilds, and a lot of
+          frustration. But every challenge just made us more determined. The result? Our AIR 2
+          and World Rank 3 trophies are a testament to that grind. Every sleepless night, every
+          snapped propeller, every dead battery, and every successful flight forged our resolve
+          to make it on the global stage.
+        </p>
+
+        <h3>What Makes Us, Us?</h3>
+        <p>
+          At VAJRA, we don't just assemble drones; we build an experience that perfectly blends
+          technical skill with genuine camaraderie. Our passion and unity set us apart. We fly
+          not just to compete, but to represent the heart and spirit of our team.
+        </p>
+        <p>
+          With amazing guidance from our experienced seniors and faculty, we're constantly
+          raising the bar for the next generation.
+        </p>
+
+        <h3>The Future is Bright</h3>
+        <p>
+          Our win at TechnoXian 9.0 isn't just a shiny medal; it's a launchpad for the future.
+          The enthusiasm of our juniors, guided by the wisdom of our seniors, shows the growing
+          strength of our "family." This momentum fuels our ambition to keep innovating, push the
+          boundaries of drone tech, and proudly represent our institution globally.
+        </p>
+        <p>
+          For prospective members, VAJRA is more than a club. It's a home where curiosity meets
+          opportunity and passion becomes a superpower. Whether you're a total newbie or a tech
+          whiz, you're welcome here.
+        </p>
+        <p>
+          To all our supporters, friends, and fellow drone enthusiasts, stay tuned for what's
+          next! Follow our journey as we share behind-the-scenes moments, technical insights, and
+          the pure excitement of competition.
+        </p>
+        <p>
+          Together, we'll soar higher and redefine what's possible in the skies.
+        </p>
+
+        <!-- Like / Share inside article -->
+        <div class="engagement-bar">
+          <div class="engagement-buttons">
+            <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+            <button class="share-btn" data-action="share">🔗 Share</button>
+          </div>
+          <div class="like-count">
+            <span class="like-count" data-target="likes">0</span> likes
+          </div>
+        </div>
+
+        <!-- COMMENTS SECTION WITH GOOGLE LOGIN -->
+        <div class="comments-section">
+          <h4>Comments</h4>
+
+          <!-- Google Login UI -->
+          <div id="google-login-area" style="margin-bottom:10px;">
+            <div id="g_id_onload"
+                 data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
+                 data-callback="onGoogleSignIn"
+                 data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="medium"
+                 data-theme="filled_black"
+                 data-text="Sign in with Google"
+                 data-shape="pill">
+            </div>
+          </div>
+
+          <p class="user-status" style="font-size:14px;color:#f7c275;margin-top:5px;">
+            Not logged in
+          </p>
+
+          <form class="comment-form" data-action="comment-form">
+            <textarea class="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
+
+          <ul class="comment-list"></ul>
+        </div>
+
+        <div class="back-row">
+          <div class="back-to-top">
+            <a href="#top">↑ Back to top</a>
+          </div>
+          <div class="read-less">
+            <button class="read-less-btn" data-action="read-less">READ LESS</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    
+<!-- === BLOG BLOCK: Why Are Drone Propellers Shaped Like That? === -->
+<div class="featured-block" data-post-id="why_propellers_shaped" style="margin-top:30px;">
+  <section class="featured-card">
+    <div class="featured-image">
+      <img src="assets/prop2.png" alt="Drone propeller close-up">
+    </div>
+    <div class="featured-content">
+      <div>
+        <div class="featured-meta">December 2025 · Tech · Aerodynamics</div>
+        <div class="featured-title">
+          <span>Why Are Drone Propellers Shaped Like That?</span>
+        </div>
+        <p class="featured-excerpt">
+          Tiny spinning wings, complex aerodynamics, and a clever twist — learn why drone
+          propellers look the way they do and how that shape makes your drone fly.
+        </p>
       </div>
 
-      <div class="back-row">
-        <div class="back-to-top">
-          <a href="#top">↑ Back to top</a>
+      <div class="card-bottom">
+        <div>
+          <div class="like-count-card">
+            <span class="like-count" data-target="likes">0</span> likes
+          </div>
+          <div class="card-actions">
+            <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+            <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
+            <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+          </div>
         </div>
-        <div class="read-less">
-          <button id="read-less-btn">READ LESS</button>
+
+        <div class="read-more-link">
+          <button class="read-more-btn" data-action="read-more">READ MORE</button>
         </div>
       </div>
-    </article>
+    </div>
+  </section>
+
+  <!-- FULL ARTICLE (hidden by default, same text preserved) -->
+  <article class="blog-post">
+    <h2>Why Are Drone Propellers Shaped Like That?</h2>
+    <div class="blog-meta">Published: December 2025 · Category: Tech · Aerodynamics</div>
+
+    <img src="assets/propeller-hero.jpg" alt="Close up of drone propeller blade" class="blog-image-inline">
+
+    <p><strong>The Invisible Dance of Twisted Blades</strong><br>
+    Ever watched a drone hover effortlessly and wondered how those tiny spinning blades defy gravity? Look closer at a propeller and you'll notice something curious: it's not flat. It's twisted, curved, and tapered like a frozen dragonfly wing. These aren't just spinning pieces of plastic—they're miniature masterpieces of aerodynamic engineering.</p>
+
+    <h3>The Magic of Shape</h3>
+    <p>Each propeller blade is essentially a rotating wing with a special cross-sectional shape called an airfoil. Here's where Bernoulli's principle works its magic: as the blade spins, the curved top surface forces air molecules to travel a longer path than those flowing underneath. To cover more distance in the same time, top-surface air accelerates, creating lower pressure. Meanwhile, slower air beneath creates higher pressure. This pressure differential is what generates lift—or in drone terms, thrust—the invisible force pushing air downward and, by Newton's third law, launching your drone upward.
+    The beauty? This isn't just happening once—it's occurring thousands of times per minute across every millimeter of blade surface. At 10,000 RPM, each blade is generating lift pulses faster than your eye can perceive, creating what feels like continuous, smooth thrust. The airfoil shape also minimizes induced drag (the resistance created as a byproduct of generating lift) through smooth contours that let air flow cleanly without creating turbulent eddies or vortices that waste energy.</p>
+
+    <p>But here's where it gets brilliant: the blade's twist is pure genius. The tip travels much faster than the base (imagine a 5-inch prop at 10,000 RPM—the tip is screaming at 500+ mph!). To maintain an optimal angle of attack along the entire blade, engineers twist it progressively from root to tip. This ensures every section works efficiently without stalling or creating excessive drag.
+    How to tell clockwise from counterclockwise props? Look at the leading edge (the front edge that cuts the air first)—if it curves upward when spinning clockwise, it's a CW prop. Flip that curve direction, and you've got a CCW prop.</p>
+
+    <h3>Rotation Direction: The Balancing Act</h3>
+    <p>On a standard quadcopter, two propellers spin clockwise and two spin counterclockwise. Why? Torque reaction.
+    When a motor spins a propeller, it creates rotational force in one direction—which means the drone wants to spin in the opposite direction. If all four props spun the same way, your drone would pirouette uncontrollably. By alternating CW and CCW props in an X-pattern, the torque reactions cancel out, keeping the drone stable.
+    Hexacopters and octocopters follow the same principle, alternating rotation directions around the frame. The flight controller constantly adjusts individual motor speeds to maintain perfect balance—but the fundamental design relies on having equal numbers of CW and CCW propellers.</p>
+
+    <h3>Small Blades, Massive Engineering</h3>
+    <p>So why are drone propellers shaped like that?
+    Because they have to be.
+    Every curve, every twist, every taper is the result of complex aerodynamic principles fighting for dominance—lift vs. drag, efficiency vs. power, noise vs. thrust, stability vs. agility. Those seemingly simple pieces of plastic represent hundreds of years of aerodynamic research, thousands of hours of wind tunnel testing, and countless iterations of computational modeling.
+    When you snap a propeller onto a motor, you're not just attaching a fan blade. You're installing a precisely engineered airfoil system that will slice through air molecules at supersonic tip speeds, generate pressure differentials that overcome gravity itself, and respond to your control inputs in milliseconds.
+    And that? That's beautiful.</p>
+
+    <!-- Like / Share inside article -->
+    <div class="engagement-bar">
+      <div class="engagement-buttons">
+        <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+        <button class="share-btn" data-action="share">🔗 Share</button>
+      </div>
+      <div class="like-count">
+        <span class="like-count" data-target="likes">0</span> likes
+      </div>
+    </div>
+
+    <!-- COMMENTS SECTION WITH GOOGLE LOGIN -->
+    <div class="comments-section">
+      <h4>Comments</h4>
+
+      <!-- Google Login UI (reuses the page-level g_id_onload entry already present) -->
+      <div id="google-login-area" style="margin-bottom:10px;">
+        <div id="g_id_onload"
+             data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
+             data-callback="onGoogleSignIn"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="medium"
+             data-theme="filled_black"
+             data-text="Sign in with Google"
+             data-shape="pill">
+        </div>
+      </div>
+
+      <p class="user-status" style="font-size:14px;color:#f7c275;margin-top:5px;">
+        Not logged in
+      </p>
+
+      <form class="comment-form" data-action="comment-form">
+        <textarea class="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+
+      <ul class="comment-list"></ul>
+    </div>
+
+    <div class="back-row">
+      <div class="back-to-top">
+        <a href="#top">↑ Back to top</a>
+      </div>
+      <div class="read-less">
+        <button class="read-less-btn" data-action="read-less">READ LESS</button>
+      </div>
+    </div>
+  </article>
+</div>
+<!-- === end propeller block === -->
+
+
   </main>
 
  <!-- Footer -->
@@ -801,7 +932,7 @@
 
     // Mirror Firebase Auth state to window.loggedUser and UI
     onAuthStateChanged(auth, (user) => {
-      const statusEl = document.getElementById("user-status");
+      // update global loggedUser
       if (user) {
         window.loggedUser = {
           name: user.displayName || null,
@@ -809,15 +940,13 @@
           picture: user.photoURL || null,
           uid: user.uid
         };
-        if (statusEl) statusEl.innerHTML = "Logged in as <b>" + (user.displayName || user.email) + "</b>";
         log("Firebase Auth signed in:", window.loggedUser);
-        window.dispatchEvent(new Event('vajra:auth-changed'));
       } else {
         window.loggedUser = null;
-        if (statusEl) statusEl.innerHTML = "Not logged in";
         log("Firebase Auth signed out");
-        window.dispatchEvent(new Event('vajra:auth-changed'));
       }
+      // broadcast for listeners (frontend + per-block UI)
+      window.dispatchEvent(new Event('vajra:auth-changed'));
     });
 
     // Exchange GSI token into Firebase Auth
@@ -838,8 +967,6 @@
         try {
           const payload = JSON.parse(atob(response.credential.split(".")[1]));
           window.loggedUser = { name: payload.name, email: payload.email, picture: payload.picture };
-          const status = document.getElementById("user-status");
-          if (status) status.innerHTML = "Logged in as <b>" + (window.loggedUser.name || window.loggedUser.email) + "</b>";
           window.dispatchEvent(new Event('vajra:auth-changed'));
         } catch (e) {
           console.error("Fallback decode failed", e);
@@ -858,219 +985,245 @@
       }
     };
 
-    // POST ID
-    const POST_ID = "technoXian_9_world_rank_3";
-
-    // DOM
-    const likeBtnCard   = document.getElementById("like-btn-card");
-    const likeBtnFull   = document.getElementById("like-btn-full");
-    const likeCountCard = document.getElementById("like-count-card");
-    const likeCountFull = document.getElementById("like-count-full");
-    const commentForm   = document.getElementById("comment-form");
-    const commentInput  = document.getElementById("comment-input");
-    const commentList   = document.getElementById("comment-list");
-    const commentLinkCard = document.getElementById("comment-link-card");
-    const commentsSection = document.getElementById("comments");
-    const fullBlog = document.getElementById("full-blog");
-
-    // Firestore refs
-    const likesDocRef = doc(db, "blogMeta", POST_ID);
-    const userLikesCollection = (userIdEncoded) => doc(db, "blogMeta", POST_ID, "userLikes", userIdEncoded);
-    const commentsCollectionRef = collection(db, "blogComments_" + POST_ID);
-
+    // ---- Reusable Firestore wiring for posts ----
     function encEmail(e) { return encodeURIComponent(e).replace(/\./g, '%2E'); }
 
-    // initLikes
-    async function initLikes() {
-      try {
-        log("initLikes starting...");
-        const snap = await getDoc(likesDocRef);
-        log("getDoc(likesDocRef) exists?", snap.exists());
-        if (!snap.exists()) {
-          log("likesDoc absent — creating with count:0");
-          await setDoc(likesDocRef, { count: 0 });
-        }
+    function wirePostFirestore(postId, blockEl) {
+      const likesDocRef = doc(db, "blogMeta", postId);
+      const userLikesRef = (uid) => doc(db, "blogMeta", postId, "userLikes", uid);
+      const commentsColRef = collection(db, "blogComments_" + postId);
 
-        onSnapshot(likesDocRef, (s) => {
-          if (s.exists()) {
-            const data = s.data();
-            const c = data.count || 0;
-            if (likeCountCard) likeCountCard.textContent = c;
-            if (likeCountFull) likeCountFull.textContent = c;
-            log("onSnapshot: likes count", c);
-          } else {
-            log("onSnapshot: doc not found");
+      // find elements inside block
+      const likeBtns = blockEl.querySelectorAll('[data-action="toggle-like"], .like-btn');
+      const likeCountEls = blockEl.querySelectorAll('.like-count[data-target="likes"]');
+      const commentList = blockEl.querySelector('.comment-list');
+      const userStatusEls = blockEl.querySelectorAll('.user-status');
+
+      // init likes doc + realtime listener
+      (async () => {
+        try {
+          const snap = await getDoc(likesDocRef);
+          if (!snap.exists()) {
+            await setDoc(likesDocRef, { count: 0 });
           }
-        }, (error) => {
-          console.error("[VAJRA ERROR] likes onSnapshot failed:", error);
-          alert("Realtime likes listener failed: " + (error && error.message || error));
-        });
+          onSnapshot(likesDocRef, (s) => {
+            if (!s.exists()) return;
+            const c = s.data().count || 0;
+            likeCountEls.forEach(el => el.textContent = c);
+          }, (err) => {
+            console.error('likes onSnapshot error for', postId, err);
+          });
+        } catch (e) { console.error('init likes error for', postId, e); }
+      })();
 
-        window.addEventListener('vajra:auth-changed', updateUserLikeUI);
-        updateUserLikeUI();
-      } catch (err) {
-        console.error("[VAJRA ERROR] initLikes failed:", err);
-        alert("Failed to initialize likes (check console).");
+      // update user's like UI & user-status
+      async function updateUserLikeUI() {
+        try {
+          const user = window.loggedUser;
+          if (!user || !user.email) {
+            likeBtns.forEach(b => b.classList.remove('liked'));
+            userStatusEls.forEach(el => el.innerHTML = 'Not logged in');
+            return;
+          }
+          const id = encEmail(user.email);
+          const s = await getDoc(userLikesRef(id));
+          const liked = s.exists();
+          likeBtns.forEach(b => b.classList.toggle('liked', liked));
+          userStatusEls.forEach(el => el.innerHTML = "Logged in as <b>" + (user.name || user.email) + "</b>");
+        } catch (e) { console.error('updateUserLikeUI error', e); }
       }
-    }
+      window.addEventListener('vajra:auth-changed', updateUserLikeUI);
+      updateUserLikeUI();
 
-    async function updateUserLikeUI() {
-      try {
+      // Like toggle
+      async function toggleLike() {
         const user = window.loggedUser;
-        if (!user || !user.email) {
-          if (likeBtnCard) likeBtnCard.classList.remove("liked");
-          if (likeBtnFull) likeBtnFull.classList.remove("liked");
-          return;
+        if (!user || !user.email) { alert('Please sign in with Google before liking the post.'); return; }
+        const uid = encEmail(user.email);
+        try {
+          await runTransaction(db, async (tx) => {
+            const metaSnap = await tx.get(likesDocRef);
+            if (!metaSnap.exists()) tx.set(likesDocRef, { count: 0 });
+            const userSnap = await tx.get(userLikesRef(uid));
+            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
+            if (userSnap.exists()) {
+              tx.update(likesDocRef, { count: Math.max(0, currentCount - 1) });
+              tx.delete(userLikesRef(uid));
+            } else {
+              tx.update(likesDocRef, { count: currentCount + 1 });
+              tx.set(userLikesRef(uid), { email: user.email, name: user.name || null, time: Date.now() });
+            }
+          });
+        } catch (err) {
+          console.error('toggleLike failed for', postId, err);
+          alert('Could not update like. Try again.');
         }
-        const id = encEmail(user.email);
-        const userLikeDoc = userLikesCollection(id);
-        const s = await getDoc(userLikeDoc);
-        const liked = s.exists();
-        if (likeBtnCard) likeBtnCard.classList.toggle("liked", liked);
-        if (likeBtnFull) likeBtnFull.classList.toggle("liked", liked);
-        log("updateUserLikeUI — liked:", liked);
-      } catch (err) {
-        console.error("[VAJRA ERROR] updateUserLikeUI failed:", err);
       }
-    }
 
-    async function toggleLikeFirestore() {
-      const user = window.loggedUser;
-      if (!user || !user.email) {
-        alert("Please sign in with Google before liking the post.");
-        return;
-      }
-      const uid = encEmail(user.email);
-      const userLikeRef = userLikesCollection(uid);
+      likeBtns.forEach(b => b.addEventListener('click', toggleLike));
 
+      // Comments realtime listener
       try {
-        await runTransaction(db, async (tx) => {
-          const metaSnap = await tx.get(likesDocRef);
-          if (!metaSnap.exists()) {
-            tx.set(likesDocRef, { count: 0 });
-          }
-          const userSnap = await tx.get(userLikeRef);
-
-          if (userSnap.exists()) {
-            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
-            const newCount = Math.max(0, currentCount - 1);
-            tx.update(likesDocRef, { count: newCount });
-            tx.delete(userLikeRef);
-          } else {
-            const currentCount = (metaSnap.exists() && metaSnap.data().count) ? metaSnap.data().count : 0;
-            tx.update(likesDocRef, { count: currentCount + 1 });
-            tx.set(userLikeRef, { email: user.email, name: user.name || null, time: Date.now() });
-          }
-        });
-      } catch (err) {
-        console.error("Like toggle failed:", err);
-        alert("Could not update like. Try again.");
-      }
-    }
-
-    function initCommentsListener() {
-      try {
-        const q = query(commentsCollectionRef, orderBy("time", "asc"));
+        const q = query(commentsColRef, orderBy('time', 'asc'));
         onSnapshot(q, (snapshot) => {
           if (!commentList) return;
-          commentList.innerHTML = "";
-          snapshot.forEach((docSnap) => {
-            const c = docSnap.data();
-            const li = document.createElement("li");
-            const time = new Date(c.time).toLocaleString("en-IN", {
-              day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+          commentList.innerHTML = '';
+          snapshot.forEach(ds => {
+            const c = ds.data();
+            const li = document.createElement('li');
+            const time = new Date(c.time).toLocaleString('en-IN', {
+              day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
             });
-            li.innerHTML =
-              "<strong>" + (c.author || "Anonymous") + "</strong>: " +
-              (c.text || "") +
-              '<span class="comment-timestamp">' + time + "</span>";
+            li.innerHTML = "<strong>" + (c.author || 'Anonymous') + "</strong>: " + (c.text || '') +
+                           '<span class="comment-timestamp">' + time + '</span>';
             commentList.appendChild(li);
           });
-          log("[VAJRA DEBUG] comments snapshot size:", snapshot.size);
-        }, (error) => {
-          console.error("[VAJRA ERROR] comments onSnapshot failed:", error);
-          alert("Comments realtime listener failed: " + (error && error.message || error));
+        }, (err) => {
+          console.error('comments onSnapshot failed for', postId, err);
         });
-      } catch (err) {
-        console.error("[VAJRA ERROR] initCommentsListener threw:", err);
-      }
-    }
+      } catch (e) { console.error('initCommentsListener threw for', postId, e); }
 
-    async function saveCommentToFirestore(text) {
-      const user = window.loggedUser;
-      if (!user || !user.email) {
-        alert("Please sign in with Google before posting a comment.");
-        return;
-      }
-      try {
-        await addDoc(commentsCollectionRef, {
-          author: user.name || "Anonymous",
-          email: user.email,
-          text: text,
-          time: Date.now()
-        });
-      } catch (err) {
-        console.error("Failed to save comment:", err);
-        alert("Could not post comment. Try again.");
-      }
-    }
-
-    if (likeBtnCard) likeBtnCard.addEventListener("click", toggleLikeFirestore);
-    if (likeBtnFull) likeBtnFull.addEventListener("click", toggleLikeFirestore);
-
-    if (commentForm) {
-      commentForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const text = (commentInput && commentInput.value || "").trim();
-        if (!text) return;
-        if (!window.loggedUser) {
-          alert("Please sign in with Google before posting a comment.");
-          return;
+      // Listen for global custom event to add comment
+      window.addEventListener('vajra:post-comment', async (ev) => {
+        try {
+          const detail = ev.detail || {};
+          if (detail.postId !== postId) return; // not for this post
+          const text = detail.text?.trim();
+          if (!text) return;
+          const user = window.loggedUser;
+          if (!user || !user.email) { alert('Please sign in with Google before posting a comment.'); return; }
+          await addDoc(commentsColRef, { author: user.name || 'Anonymous', email: user.email, text, time: Date.now() });
+        } catch (err) {
+          console.error('Failed to save comment', err);
+          alert('Could not post comment. Try again.');
         }
-        await saveCommentToFirestore(text);
-        if (commentInput) commentInput.value = "";
       });
     }
 
-    if (commentLinkCard) {
-      commentLinkCard.onclick = function () {
-        if (fullBlog) fullBlog.style.display = "block";
-        setTimeout(function () {
-          if (commentsSection) commentsSection.scrollIntoView({ behavior: "smooth" });
-        }, 200);
-      };
+    // Wire all posts found on page
+    function wireAllPosts() {
+      const blocks = document.querySelectorAll('.featured-block[data-post-id]');
+      blocks.forEach(b => {
+        const slug = b.dataset.postId;
+        if (slug) wirePostFirestore(slug, b);
+      });
     }
 
-    window.addEventListener('vajra:auth-changed', updateUserLikeUI);
-    initLikes();
-    initCommentsListener();
+    // Wait a tick for DOM to be ready, then wire posts
+    setTimeout(() => {
+      wireAllPosts();
+    }, 200);
   </script>
 
-  <!-- Front-end behaviors (read more, share) -->
+  <!-- Front-end behaviors (shared for all posts) -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const readMoreBtn = document.getElementById("read-more-btn");
-      const readLessBtn = document.getElementById("read-less-btn");
-      const fullBlog    = document.getElementById("full-blog");
-      const topSection  = document.getElementById("top");
+      const featuredBlocks = document.querySelectorAll('.featured-block');
 
-      if (readMoreBtn) readMoreBtn.onclick = () => { fullBlog.style.display = "block"; fullBlog.scrollIntoView({ behavior: "smooth" }); };
-      if (readLessBtn) readLessBtn.onclick = () => { topSection.scrollIntoView({ behavior: "smooth" }); setTimeout(() => { fullBlog.style.display = "none"; }, 350); };
-
-      const shareLinkCard = document.getElementById("share-link-card");
-      const shareBtnFull  = document.getElementById("share-btn-full");
-
-      function sharePost() {
-        const url = window.location.href;
+      // Share helper: builds a per-post hash so each post can be linked
+      function sharePostForSlug(slug) {
+        const base = window.location.href.split('#')[0];
+        const url = base + '#' + slug;
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(() => alert("🔗 Blog link copied to clipboard!")).catch(() => alert("Could not copy link. Please copy it manually: " + url));
+          navigator.clipboard.writeText(url).then(
+            () => alert("🔗 Blog link copied to clipboard!")
+          ).catch(() => alert("Could not copy link. Copy manually: " + url));
         } else {
           alert("Copy this link: " + url);
         }
       }
 
-      if (shareLinkCard) shareLinkCard.onclick = sharePost;
-      if (shareBtnFull) shareBtnFull.onclick  = sharePost;
+      featuredBlocks.forEach(block => {
+        const slug = block.dataset.postId;
+        if (!slug) return;
+
+        const featuredCard = block.querySelector('.featured-card');
+        const fullArticle = block.querySelector('.blog-post');
+        const readMoreBtn = block.querySelector('[data-action="read-more"], .read-more-btn');
+        const readLessBtn = block.querySelector('[data-action="read-less"], .read-less-btn');
+        const shareBtns = block.querySelectorAll('[data-action="share"], .share-link, .share-btn');
+        const commentLinks = block.querySelectorAll('[data-action="open-comments"], .comment-link');
+        const commentForm = block.querySelector('[data-action="comment-form"], .comment-form');
+        const commentInput = block.querySelector('.comment-input');
+        const commentList = block.querySelector('.comment-list');
+        const userStatusEls = block.querySelectorAll('.user-status');
+
+        // READ MORE
+        if (readMoreBtn && fullArticle) {
+          readMoreBtn.addEventListener('click', () => {
+            fullArticle.style.display = 'block';
+            fullArticle.scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, '', '#' + slug);
+          });
+        }
+
+        // READ LESS
+        if (readLessBtn && fullArticle) {
+          readLessBtn.addEventListener('click', () => {
+            document.getElementById('top')?.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => { fullArticle.style.display = 'none'; }, 350);
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          });
+        }
+
+        // SHARE (card + article)
+        shareBtns.forEach(btn => {
+          btn.addEventListener('click', () => sharePostForSlug(slug));
+        });
+
+        // COMMENT LINK from card scrolls to comments (opens article)
+        commentLinks.forEach(cl => {
+          cl.addEventListener('click', () => {
+            if (fullArticle) {
+              fullArticle.style.display = 'block';
+              setTimeout(() => {
+                const commentsSection = fullArticle.querySelector('.comments-section');
+                if (commentsSection) commentsSection.scrollIntoView({ behavior: 'smooth' });
+              }, 200);
+            }
+            history.replaceState(null, '', '#' + slug + '-comments');
+          });
+        });
+
+        // Comment form submit -> dispatch custom event; module will listen and save to Firestore
+        if (commentForm) {
+          commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = commentInput?.value?.trim();
+            if (!text) return;
+            window.dispatchEvent(new CustomEvent('vajra:post-comment', {
+              detail: { postId: slug, text }
+            }));
+            // clear textarea immediately for snappy UX; saved result will show from realtime listener
+            if (commentInput) commentInput.value = '';
+          });
+        }
+
+        // init user-status text
+        userStatusEls.forEach(el => el.innerHTML = 'Not logged in');
+      });
+
+      // If URL contains a hash for a post, open it on load
+      const hash = location.hash.replace('#', '');
+      if (hash) {
+        const slug = hash.replace('-comments', '');
+        const block = document.querySelector('.featured-block[data-post-id="' + slug + '"]');
+        const openComments = hash.endsWith('-comments');
+        if (block) {
+          const article = block.querySelector('.blog-post');
+          if (article) {
+            article.style.display = 'block';
+            setTimeout(() => {
+              if (openComments) {
+                const cs = article.querySelector('.comments-section');
+                if (cs) cs.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                article.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 200);
+          }
+        }
+      }
     });
   </script>
 </body>
