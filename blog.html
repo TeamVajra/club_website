@@ -7,6 +7,7 @@
   <link rel="icon" href="/assets/club-logo.jpg">
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <!-- Lexend Font -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -518,10 +519,58 @@
         max-height: 260px;
       }
     }
+  /* small byline style */
+.article-byline {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* the "~By" prefix */
+.article-byline .by-prefix {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* author link (yellow) */
+.article-byline .by-author,
+.article-byline .by-author:visited,
+.article-byline .by-author:active {
+  color: var(--brand-yellow);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.article-byline .by-author:hover,
+.article-byline .by-author:focus {
+  text-decoration: underline;
+  outline: none;
+  color: var(--brand-yellow);
+}
+
+/* the explanatory note — keep this white */
+.article-byline .by-note {
+  color: var(--text-light); /* white */
+  font-weight: 400;
+  font-size: 0.88rem;
+}
+
   </style>
 </head>
 
 <body>
+  <!-- PAGE-LEVEL Google Identity configuration: keep exactly one of these -->
+  <div id="g_id_onload"
+       data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
+       data-callback="onGoogleSignIn"
+       data-auto_prompt="false">
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="container nav">
@@ -538,7 +587,7 @@
       <a href="/gallery.html">Gallery</a>
       <a href="/team.html">Team</a>
       <a href="/blog.html" class="active">Blogs</a>
-       <a href="/contact.html">Contact</a>
+      <a href="/contact.html">Contact</a>
     </div>
   </header>
 
@@ -564,11 +613,19 @@
               <span>The Sky's No Limit:</span> How VAJRA Flew to World Rank 3
             </div>
             <p class="featured-excerpt">
-              A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit —
+              A wild idea, countless test flights, late-night rebuilds, and a team that refused to quit
               this is how VAJRA went from a campus drone club to securing All India Rank 2 and
               World Rank 3 at TechnoXian 9.0. Here’s the journey behind those medals and what it
               really took to stand on the global podium.
             </p>
+            <div class="article-byline">
+  <span class="by-prefix">~By</span>
+  <a class="by-author" href="https://www.linkedin.com/in/sammrudhi-sunil-kulkarni-611b39354" target="_blank" rel="noopener noreferrer">
+    <h2>Sammrudhi Kulkarni</h2>
+  </a>
+  <span class="by-note"> (Click on the name to know more about this member)</span>
+</div>
+
           </div>
 
           <div class="card-bottom">
@@ -681,6 +738,15 @@
         <p>
           Together, we'll soar higher and redefine what's possible in the skies.
         </p>
+        <div class="article-byline">
+  <span class="by-prefix">~By</span>
+  <a class="by-author" href="https://www.linkedin.com/in/sammrudhi-sunil-kulkarni-611b39354" target="_blank" rel="noopener noreferrer">
+   <h2> Sammrudhi Kulkarni</h2>
+  </a>
+  <span class="by-note"> (Click on the name to know more about this member)</span>
+</div>
+
+
 
         <!-- Like / Share inside article -->
         <div class="engagement-bar">
@@ -698,13 +764,7 @@
           <h4>Comments</h4>
 
           <!-- Google Login UI -->
-          <div id="google-login-area" style="margin-bottom:10px;">
-            <div id="g_id_onload"
-                 data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
-                 data-callback="onGoogleSignIn"
-                 data-auto_prompt="false">
-            </div>
-
+          <div class="google-login-area" style="margin-bottom:10px;">
             <div class="g_id_signin"
                  data-type="standard"
                  data-size="medium"
@@ -736,133 +796,140 @@
         </div>
       </article>
     </div>
-    
-<!-- === BLOG BLOCK: Why Are Drone Propellers Shaped Like That? === -->
-<div class="featured-block" data-post-id="why_propellers_shaped" style="margin-top:30px;">
-  <section class="featured-card">
-    <div class="featured-image">
-      <img src="assets/prop2.png" alt="Drone propeller close-up">
-    </div>
-    <div class="featured-content">
-      <div>
-        <div class="featured-meta">December 2025 · Tech · Aerodynamics</div>
-        <div class="featured-title">
-          <span>Why Are Drone Propellers Shaped Like That?</span>
-        </div>
-        <p class="featured-excerpt">
-          Tiny spinning wings, complex aerodynamics, and a clever twist — learn why drone
-          propellers look the way they do and how that shape makes your drone fly.
-        </p>
-      </div>
 
-      <div class="card-bottom">
-        <div>
-          <div class="like-count-card">
+    <!-- === BLOG BLOCK: Why Are Drone Propellers Shaped Like That? === -->
+    <div class="featured-block" data-post-id="why_propellers_shaped" style="margin-top:30px;">
+      <section class="featured-card">
+        <div class="featured-image">
+          <img src="assets/prop2.png" alt="Drone propeller close-up">
+        </div>
+        <div class="featured-content">
+          <div>
+            <div class="featured-meta">December 2025 · Tech · Aerodynamics</div>
+            <div class="featured-title">
+              <span>Why Are Drone Propellers Shaped Like That?</span>
+            </div>
+            <p class="featured-excerpt">
+              Tiny spinning wings, complex aerodynamics, and a clever twist learn why drone
+              propellers look the way they do and how that shape makes your drone fly.
+            </p>
+            <div class="article-byline">
+  <span class="by-prefix">~By</span>
+  <a class="by-author" href="" target="_blank" rel="noopener noreferrer">
+   <h2> Avani Soman</h2>
+  </a>
+  <span class="by-note"> (Click on the name to know more about this member)</span>
+</div>
+          </div>
+
+          <div class="card-bottom">
+            <div>
+              <div class="like-count-card">
+                <span class="like-count" data-target="likes">0</span> likes
+              </div>
+              <div class="card-actions">
+                <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+                <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
+                <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+              </div>
+            </div>
+
+            <div class="read-more-link">
+              <button class="read-more-btn" data-action="read-more">READ MORE</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL ARTICLE (hidden by default, same text preserved) -->
+      <article class="blog-post">
+        <h2>Why Are Drone Propellers Shaped Like That?</h2>
+        <div class="blog-meta">Published: December 2025 · Category: Tech · Aerodynamics</div>
+
+        <img src="assets/propeller-hero.jpg" alt="Close up of drone propeller blade" class="blog-image-inline">
+
+        <p><strong>The Invisible Dance of Twisted Blades</strong><br>
+        Ever watched a drone hover effortlessly and wondered how those tiny spinning blades defy gravity? Look closer at a propeller and you'll notice something curious: it's not flat. It's twisted, curved, and tapered like a frozen dragonfly wing. These aren't just spinning pieces of plastic—they're miniature masterpieces of aerodynamic engineering.</p>
+
+        <h3>The Magic of Shape</h3>
+        <p>Each propeller blade is essentially a rotating wing with a special cross-sectional shape called an airfoil. Here's where Bernoulli's principle works its magic: as the blade spins, the curved top surface forces air molecules to travel a longer path than those flowing underneath. To cover more distance in the same time, top-surface air accelerates, creating lower pressure. Meanwhile, slower air beneath creates higher pressure. This pressure differential is what generates lift—or in drone terms, thrust—the invisible force pushing air downward and, by Newton's third law, launching your drone upward.
+        The beauty? This isn't just happening once—it's occurring thousands of times per minute across every millimeter of blade surface. At 10,000 RPM, each blade is generating lift pulses faster than your eye can perceive, creating what feels like continuous, smooth thrust. The airfoil shape also minimizes induced drag (the resistance created as a byproduct of generating lift) through smooth contours that let air flow cleanly without creating turbulent eddies or vortices that waste energy.</p>
+
+        <p>But here's where it gets brilliant: the blade's twist is pure genius. The tip travels much faster than the base (imagine a 5-inch prop at 10,000 RPM—the tip is screaming at 500+ mph!). To maintain an optimal angle of attack along the entire blade, engineers twist it progressively from root to tip. This ensures every section works efficiently without stalling or creating excessive drag.
+        How to tell clockwise from counterclockwise props? Look at the leading edge (the front edge that cuts the air first)—if it curves upward when spinning clockwise, it's a CW prop. Flip that curve direction, and you've got a CCW prop.</p>
+
+        <h3>Rotation Direction: The Balancing Act</h3>
+        <p>On a standard quadcopter, two propellers spin clockwise and two spin counterclockwise. Why? Torque reaction.
+        When a motor spins a propeller, it creates rotational force in one direction—which means the drone wants to spin in the opposite direction. If all four props spun the same way, your drone would pirouette uncontrollably. By alternating CW and CCW props in an X-pattern, the torque reactions cancel out, keeping the drone stable.
+        Hexacopters and octocopters follow the same principle, alternating rotation directions around the frame. The flight controller constantly adjusts individual motor speeds to maintain perfect balance—but the fundamental design relies on having equal numbers of CW and CCW propellers.</p>
+
+        <h3>Small Blades, Massive Engineering</h3>
+        <p>So why are drone propellers shaped like that?
+        Because they have to be.
+        Every curve, every twist, every taper is the result of complex aerodynamic principles fighting for dominance—lift vs. drag, efficiency vs. power, noise vs. thrust, stability vs. agility. Those seemingly simple pieces of plastic represent hundreds of years of aerodynamic research, thousands of hours of wind tunnel testing, and countless iterations of computational modeling.
+        When you snap a propeller onto a motor, you're not just attaching a fan blade. You're installing a precisely engineered airfoil system that will slice through air molecules at supersonic tip speeds, generate pressure differentials that overcome gravity itself, and respond to your control inputs in milliseconds.
+        And that? That's beautiful.</p>
+        <div class="article-byline">
+  <span class="by-prefix">~By</span>
+  <a class="by-author" href="" target="_blank" rel="noopener noreferrer">
+   <h2> Avani Soman</h2>
+  </a>
+  <span class="by-note"> (Click on the name to know more about this member)</span>
+</div>
+
+        <!-- Like / Share inside article -->
+        <div class="engagement-bar">
+          <div class="engagement-buttons">
+            <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+            <button class="share-btn" data-action="share">🔗 Share</button>
+          </div>
+          <div class="like-count">
             <span class="like-count" data-target="likes">0</span> likes
           </div>
-          <div class="card-actions">
-            <button class="like-btn" data-action="toggle-like">❤️ Like</button>
-            <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
-            <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+        </div>
+
+        <!-- COMMENTS SECTION WITH GOOGLE LOGIN -->
+        <div class="comments-section">
+          <h4>Comments</h4>
+
+          <!-- Google Login UI (reuses the page-level g_id_onload entry already present) -->
+          <div class="google-login-area" style="margin-bottom:10px;">
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="medium"
+                 data-theme="filled_black"
+                 data-text="Sign in with Google"
+                 data-shape="pill">
+            </div>
+          </div>
+
+          <p class="user-status" style="font-size:14px;color:#f7c275;margin-top:5px;">
+            Not logged in
+          </p>
+
+          <form class="comment-form" data-action="comment-form">
+            <textarea class="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
+
+          <ul class="comment-list"></ul>
+        </div>
+
+        <div class="back-row">
+          <div class="back-to-top">
+            <a href="#top">↑ Back to top</a>
+          </div>
+          <div class="read-less">
+            <button class="read-less-btn" data-action="read-less">READ LESS</button>
           </div>
         </div>
-
-        <div class="read-more-link">
-          <button class="read-more-btn" data-action="read-more">READ MORE</button>
-        </div>
-      </div>
+      </article>
     </div>
-  </section>
-
-  <!-- FULL ARTICLE (hidden by default, same text preserved) -->
-  <article class="blog-post">
-    <h2>Why Are Drone Propellers Shaped Like That?</h2>
-    <div class="blog-meta">Published: December 2025 · Category: Tech · Aerodynamics</div>
-
-    <img src="assets/propeller-hero.jpg" alt="Close up of drone propeller blade" class="blog-image-inline">
-
-    <p><strong>The Invisible Dance of Twisted Blades</strong><br>
-    Ever watched a drone hover effortlessly and wondered how those tiny spinning blades defy gravity? Look closer at a propeller and you'll notice something curious: it's not flat. It's twisted, curved, and tapered like a frozen dragonfly wing. These aren't just spinning pieces of plastic—they're miniature masterpieces of aerodynamic engineering.</p>
-
-    <h3>The Magic of Shape</h3>
-    <p>Each propeller blade is essentially a rotating wing with a special cross-sectional shape called an airfoil. Here's where Bernoulli's principle works its magic: as the blade spins, the curved top surface forces air molecules to travel a longer path than those flowing underneath. To cover more distance in the same time, top-surface air accelerates, creating lower pressure. Meanwhile, slower air beneath creates higher pressure. This pressure differential is what generates lift—or in drone terms, thrust—the invisible force pushing air downward and, by Newton's third law, launching your drone upward.
-    The beauty? This isn't just happening once—it's occurring thousands of times per minute across every millimeter of blade surface. At 10,000 RPM, each blade is generating lift pulses faster than your eye can perceive, creating what feels like continuous, smooth thrust. The airfoil shape also minimizes induced drag (the resistance created as a byproduct of generating lift) through smooth contours that let air flow cleanly without creating turbulent eddies or vortices that waste energy.</p>
-
-    <p>But here's where it gets brilliant: the blade's twist is pure genius. The tip travels much faster than the base (imagine a 5-inch prop at 10,000 RPM—the tip is screaming at 500+ mph!). To maintain an optimal angle of attack along the entire blade, engineers twist it progressively from root to tip. This ensures every section works efficiently without stalling or creating excessive drag.
-    How to tell clockwise from counterclockwise props? Look at the leading edge (the front edge that cuts the air first)—if it curves upward when spinning clockwise, it's a CW prop. Flip that curve direction, and you've got a CCW prop.</p>
-
-    <h3>Rotation Direction: The Balancing Act</h3>
-    <p>On a standard quadcopter, two propellers spin clockwise and two spin counterclockwise. Why? Torque reaction.
-    When a motor spins a propeller, it creates rotational force in one direction—which means the drone wants to spin in the opposite direction. If all four props spun the same way, your drone would pirouette uncontrollably. By alternating CW and CCW props in an X-pattern, the torque reactions cancel out, keeping the drone stable.
-    Hexacopters and octocopters follow the same principle, alternating rotation directions around the frame. The flight controller constantly adjusts individual motor speeds to maintain perfect balance—but the fundamental design relies on having equal numbers of CW and CCW propellers.</p>
-
-    <h3>Small Blades, Massive Engineering</h3>
-    <p>So why are drone propellers shaped like that?
-    Because they have to be.
-    Every curve, every twist, every taper is the result of complex aerodynamic principles fighting for dominance—lift vs. drag, efficiency vs. power, noise vs. thrust, stability vs. agility. Those seemingly simple pieces of plastic represent hundreds of years of aerodynamic research, thousands of hours of wind tunnel testing, and countless iterations of computational modeling.
-    When you snap a propeller onto a motor, you're not just attaching a fan blade. You're installing a precisely engineered airfoil system that will slice through air molecules at supersonic tip speeds, generate pressure differentials that overcome gravity itself, and respond to your control inputs in milliseconds.
-    And that? That's beautiful.</p>
-
-    <!-- Like / Share inside article -->
-    <div class="engagement-bar">
-      <div class="engagement-buttons">
-        <button class="like-btn" data-action="toggle-like">❤️ Like</button>
-        <button class="share-btn" data-action="share">🔗 Share</button>
-      </div>
-      <div class="like-count">
-        <span class="like-count" data-target="likes">0</span> likes
-      </div>
-    </div>
-
-    <!-- COMMENTS SECTION WITH GOOGLE LOGIN -->
-    <div class="comments-section">
-      <h4>Comments</h4>
-
-      <!-- Google Login UI (reuses the page-level g_id_onload entry already present) -->
-      <div id="google-login-area" style="margin-bottom:10px;">
-        <div id="g_id_onload"
-             data-client_id="865557876116-4lose7akf8na0sptm29nvvfp83dolmab.apps.googleusercontent.com"
-             data-callback="onGoogleSignIn"
-             data-auto_prompt="false">
-        </div>
-
-        <div class="g_id_signin"
-             data-type="standard"
-             data-size="medium"
-             data-theme="filled_black"
-             data-text="Sign in with Google"
-             data-shape="pill">
-        </div>
-      </div>
-
-      <p class="user-status" style="font-size:14px;color:#f7c275;margin-top:5px;">
-        Not logged in
-      </p>
-
-      <form class="comment-form" data-action="comment-form">
-        <textarea class="comment-input" placeholder="Share your thoughts about this flight..."></textarea>
-        <button type="submit">Post Comment</button>
-      </form>
-
-      <ul class="comment-list"></ul>
-    </div>
-
-    <div class="back-row">
-      <div class="back-to-top">
-        <a href="#top">↑ Back to top</a>
-      </div>
-      <div class="read-less">
-        <button class="read-less-btn" data-action="read-less">READ LESS</button>
-      </div>
-    </div>
-  </article>
-</div>
-<!-- === end propeller block === -->
-
+    <!-- === end propeller block === -->
 
   </main>
 
- <!-- Footer -->
+    <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-main">
       <div class="footer-column branding">
@@ -893,8 +960,7 @@
       <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
     </div>
   </footer>
-
-<!-- Firebase module -->
+  <!-- Firebase module -->
   <script type="module">
     console.log("🔥 Firebase module script loaded");
 
@@ -954,24 +1020,29 @@
       try {
         if (!response || !response.credential) {
           console.error("[VAJRA] GSI response missing credential", response);
+          alert("Google sign-in failed: missing credential. (Check console)");
           return;
         }
-        log("GSI credential received — exchanging for Firebase credential...");
+        console.log("[VAJRA] GSI credential received — exchanging for Firebase credential...");
         const idToken = response.credential;
         const firebaseCred = GoogleAuthProvider.credential(idToken);
         await signInWithCredential(auth, firebaseCred);
-        log("[VAJRA] Signed in to Firebase using GSI token.");
+        console.log("[VAJRA] Signed in to Firebase using GSI token.");
       } catch (err) {
         console.error("[VAJRA ERROR] signInWithCredential failed:", err);
-        // Fallback UI decode (not Firebase-authenticated)
+        // Helpful fallback debug: decode JWT payload to show name/email for logging (not secure for production use)
         try {
           const payload = JSON.parse(atob(response.credential.split(".")[1]));
+          console.warn("[VAJRA] Decoded GSI JWT payload (fallback):", payload);
+          // temporarily set window.loggedUser for UI while investigating
           window.loggedUser = { name: payload.name, email: payload.email, picture: payload.picture };
           window.dispatchEvent(new Event('vajra:auth-changed'));
         } catch (e) {
           console.error("Fallback decode failed", e);
         }
-        alert("Sign-in failed. Check console for details.");
+
+        // Show error details to the user (small). In production you can remove err.message or show friendlier text.
+        alert("Sign-in failed: " + (err?.message || "Unknown error") + ". Check console for details.");
       }
     };
 
