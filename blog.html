@@ -559,6 +559,60 @@
   font-weight: 400;
   font-size: 0.88rem;
 }
+    /* Likes modal */
+.likes-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.likes-modal {
+  width: min(560px, 92%);
+  max-height: 70vh;
+  overflow: auto;
+  background: linear-gradient(180deg,#0b0c10,#070708);
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(247,194,117,0.18);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.7);
+  color: var(--text-muted);
+}
+.likes-modal h3 {
+  margin: 0 0 8px 0;
+  color: var(--brand-yellow);
+  font-size: 1.05rem;
+}
+.likes-list {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0;
+}
+.likes-list li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+.likes-list .meta {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(224,224,224,0.7);
+  margin-top: 4px;
+}
+.likes-modal .close-btn {
+  background: none;
+  border: 1px solid rgba(247,194,117,0.18);
+  color: var(--text-light);
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  float: right;
+}
+
 
   </style>
 </head>
@@ -634,10 +688,12 @@
                 <span class="like-count" data-target="likes">0</span> likes
               </div>
               <div class="card-actions">
-                <button class="like-btn" data-action="toggle-like">❤️ Like</button>
-                <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
-                <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
-              </div>
+  <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+  <a class="view-likes" data-action="view-likes" href="javascript:void(0);">View Likes</a>
+  <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
+  <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+</div>
+
             </div>
             <div class="read-more-link">
               <button class="read-more-btn" data-action="read-more">READ MORE</button>
@@ -827,11 +883,13 @@
               <div class="like-count-card">
                 <span class="like-count" data-target="likes">0</span> likes
               </div>
-              <div class="card-actions">
-                <button class="like-btn" data-action="toggle-like">❤️ Like</button>
-                <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
-                <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
-              </div>
+             <div class="card-actions">
+  <button class="like-btn" data-action="toggle-like">❤️ Like</button>
+  <a class="view-likes" data-action="view-likes" href="javascript:void(0);">View Likes</a>
+  <a class="share-link" data-action="share" href="javascript:void(0);">Share</a>
+  <a class="comment-link" data-action="open-comments" href="javascript:void(0);">Post a Comment</a>
+</div>
+
             </div>
 
             <div class="read-more-link">
@@ -965,10 +1023,8 @@
     console.log("🔥 Firebase module script loaded");
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import {
-      getFirestore, doc, getDoc, setDoc,
-      collection, addDoc, onSnapshot, query, orderBy, runTransaction
-    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+   import { collection, addDoc, onSnapshot, query, orderBy, runTransaction, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
 
     import {
       getAuth,
@@ -1063,6 +1119,83 @@
       const likesDocRef = doc(db, "blogMeta", postId);
       const userLikesRef = (uid) => doc(db, "blogMeta", postId, "userLikes", uid);
       const commentsColRef = collection(db, "blogComments_" + postId);
+      
+// --- Likes viewer UI wiring ---
+const viewLikesBtn = blockEl.querySelector('[data-action="view-likes"], .view-likes');
+
+// Create modal DOM once and reuse
+let likesBackdrop = blockEl.querySelector('.likes-modal-backdrop');
+if (!likesBackdrop) {
+  likesBackdrop = document.createElement('div');
+  likesBackdrop.className = 'likes-modal-backdrop';
+  likesBackdrop.innerHTML = `
+    <div class="likes-modal" role="dialog" aria-modal="true">
+      <button class="close-btn">Close</button>
+      <h3>People who liked this post</h3>
+      <ul class="likes-list"></ul>
+    </div>
+  `;
+  document.body.appendChild(likesBackdrop);
+}
+
+const likesListEl = likesBackdrop.querySelector('.likes-list');
+const likesCloseBtn = likesBackdrop.querySelector('.close-btn');
+
+function openLikesModal() {
+  likesBackdrop.style.display = 'flex';
+}
+function closeLikesModal() {
+  likesBackdrop.style.display = 'none';
+}
+
+// Close handlers
+likesCloseBtn.addEventListener('click', closeLikesModal);
+likesBackdrop.addEventListener('click', (ev) => {
+  // close when clicking outside the modal content
+  if (ev.target === likesBackdrop) closeLikesModal();
+});
+
+// Function to fetch likers and populate modal
+async function fetchAndShowLikers() {
+  try {
+    likesListEl.innerHTML = '<li>Loading…</li>';
+    const userLikesCol = collection(db, "blogMeta", postId, "userLikes");
+    const q = query(userLikesCol, orderBy('time', 'desc'));
+    const snap = await getDocs(q);
+    likesListEl.innerHTML = '';
+    if (snap.empty) {
+      likesListEl.innerHTML = '<li>No likes yet — be the first!</li>';
+    } else {
+      snap.forEach(docSnap => {
+        const d = docSnap.data() || {};
+        const name = d.name || d.email || 'Anonymous';
+        const timeStr = d.time ? new Date(d.time).toLocaleString('en-IN', {
+          day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        }) : '';
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${escapeHtml(name)}</strong>
+                        ${d.email ? `<div class="meta">${escapeHtml(d.email)}${timeStr ? ' · ' + timeStr : ''}</div>` : (timeStr ? `<div class="meta">${timeStr}</div>` : '')}`;
+        likesListEl.appendChild(li);
+      });
+    }
+    openLikesModal();
+  } catch (err) {
+    console.error('Could not fetch likers for', postId, err);
+    alert('Could not load likers. See console for details.');
+  }
+}
+
+// helper to avoid XSS when inserting user strings
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, function (m) {
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'": '&#39;'}[m]);
+  });
+}
+
+// Wire button click
+if (viewLikesBtn) {
+  viewLikesBtn.addEventListener('click', fetchAndShowLikers);
+}
 
       // find elements inside block
       const likeBtns = blockEl.querySelectorAll('[data-action="toggle-like"], .like-btn');
