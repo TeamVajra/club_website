@@ -1581,8 +1581,28 @@
         const slug = block.dataset.postId;
         if (!slug) return;
 
-        const featuredCard = block.querySelector('.featured-card');
-        const fullArticle = block.querySelector('.blog-post');
+      const featuredCard = block.querySelector('.featured-card');
+const fullArticle = block.querySelector('.blog-post');
+
+/* ✅ CLICK ANYWHERE ON CARD TO OPEN BLOG */
+if (featuredCard && fullArticle) {
+  featuredCard.addEventListener('click', (e) => {
+    // Prevent opening when clicking buttons or links
+    if (
+      e.target.closest('button') ||
+      e.target.closest('a') ||
+      e.target.closest('input') ||
+      e.target.closest('textarea')
+    ) {
+      return;
+    }
+
+    fullArticle.style.display = 'block';
+    fullArticle.scrollIntoView({ behavior: 'smooth' });
+    history.replaceState(null, '', '#' + slug);
+  });
+}
+
         const readMoreBtn = block.querySelector('[data-action="read-more"], .read-more-btn');
         const readLessBtn = block.querySelector('[data-action="read-less"], .read-less-btn');
         const shareBtns = block.querySelectorAll('[data-action="share"], .share-link, .share-btn');
