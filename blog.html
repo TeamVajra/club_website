@@ -1563,19 +1563,55 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const featuredBlocks = document.querySelectorAll('.featured-block');
+function sharePostForSlug(slug) {
+  const base = location.href.split('#')[0];
+  const url = base + '#' + slug;
+  const text = "🚁 Check out this blog from Team Vajra";
 
-      // Share helper: builds a per-post hash so each post can be linked
-      function sharePostForSlug(slug) {
-        const base = window.location.href.split('#')[0];
-        const url = base + '#' + slug;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(
-            () => alert("🔗 Blog link copied to clipboard!")
-          ).catch(() => alert("Could not copy link. Copy manually: " + url));
-        } else {
-          alert("Copy this link: " + url);
-        }
-      }
+  // 📱 MOBILE → Native Android/iOS share (your screenshot UI)
+  if (navigator.share) {
+    navigator.share({
+      title: "Team Vajra Blog",
+      text,
+      url
+    }).catch(() => {});
+    return;
+  }
+
+  // 💻 DESKTOP → Custom modal
+  const modal = document.getElementById('shareModal');
+  modal.style.display = 'flex';
+
+  modal.querySelectorAll('[data-platform]').forEach(btn => {
+    btn.onclick = () => {
+      const p = btn.dataset.platform;
+      const eURL = encodeURIComponent(url);
+      const eText = encodeURIComponent(text);
+
+      if (p === 'whatsapp')
+        window.open(`https://wa.me/?text=${eText}%20${eURL}`);
+
+      if (p === 'twitter')
+        window.open(`https://twitter.com/intent/tweet?text=${eText}&url=${eURL}`);
+
+      if (p === 'linkedin')
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${eURL}`);
+
+      if (p === 'gmail')
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&su=${eText}&body=${eURL}`);
+
+      if (p === 'instagram')
+        window.open('https://www.instagram.com/');
+
+      modal.style.display = 'none';
+    };
+  });
+
+  modal.querySelector('.share-close').onclick = () => {
+    modal.style.display = 'none';
+  };
+}
+
 
       featuredBlocks.forEach(block => {
         const slug = block.dataset.postId;
