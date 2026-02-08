@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TEAM VAJRA - Member Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/assets/club-logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-maroon: #800000;
+      --brand-yellow: #f7c275;
+      --text-light: #ffffff;
+      --text-muted: #e0e0e0;
+      --bg-dark: #050608;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lexend', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)),
+        url("assets/blog-bg-drones.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-light);
+    }
+
+    /* Header */
+    .header {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      border-bottom: 2px solid var(--brand-maroon);
+      padding: 12px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--brand-yellow);
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: var(--brand-yellow);
+    }
+
+    /* Login Container */
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .login-card {
+      background: rgba(10, 10, 15, 0.95);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(247, 194, 117, 0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-header img {
+      height: 70px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .login-header h1 {
+      font-size: 1.6rem;
+      color: var(--brand-yellow);
+      margin-bottom: 5px;
+    }
+
+    .login-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(247, 194, 117, 0.4);
+      background: rgba(0, 0, 0, 0.6);
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--brand-yellow);
+      box-shadow: 0 0 0 3px rgba(247, 194, 117, 0.2);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(224, 224, 224, 0.5);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--brand-maroon), #a00000);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(128, 0, 0, 0.5);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      background: rgba(200, 50, 50, 0.2);
+      border: 1px solid rgba(200, 50, 50, 0.5);
+      color: #ff6b6b;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: var(--brand-yellow);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.9);
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 2px solid var(--brand-maroon);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+        <div>
+          <div class="title">TEAM VAJRA</div>
+          <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
+        </div>
+      </div>
+      <a href="/index.html">Home</a>
+      <a href="/blog.html">Blogs</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </header>
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="/assets/club-logo.jpg" alt="Team Vajra">
+        <h1>Member Login</h1>
+        <p>Access the blog editor dashboard</p>
+      </div>
+
+      <div class="error-message" id="errorMsg"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Email / Username</label>
+          <input type="text" id="username" placeholder="Enter your email" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          Sign In
+        </button>
+      </form>
+
+      <div class="back-link">
+        <a href="/blog.html">← Back to Blog</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 TEAM VAJRA. All Rights Reserved. | Member Portal</p>
+  </footer>
+
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+    // Firebase config (same as blog.html)
+    const firebaseConfig = {
+      apiKey: "AIzaSyChvColRVokPBbAOiXv8P26ScRyDxPJI2w",
+      authDomain: "team-vajra.firebaseapp.com",
+      projectId: "team-vajra",
+      storageBucket: "team-vajra.firebasestorage.app",
+      messagingSenderId: "865557876116",
+      appId: "1:865557876116:web:9f0ee78cee3c157df75381",
+      measurementId: "G-TN5CL22RSH"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Hardcoded users (passwords will be checked via simple hash comparison)
+    const USERS = {
+      "omkarbedekar2022.etc@mmcoe.edu.in": { password: "Omkar@040921", name: "Omkar Bedekar", role: "admin" },
+      "atharvakanawade2022.etc@mmcoe.edu.in": { password: "Atharva@040514", name: "Atharva Kanawade", role: "admin" },
+      "himanshupatil2025.mech@mmcoe.edu.in": { password: "Himanshu@070522", name: "Himanshu Patil", role: "member" },
+      "nayanpatel2024.ainds@mmcoe.edu.in": { password: "Nayan@050814", name: "Nayan Patel", role: "member" },
+      "veerapatil2025.it@mmcoe.edu.in": { password: "Veera@070109", name: "Veera Patil", role: "member" },
+      "kasliwaltanisha75@gmail.com": { password: "Tanisha@050207", name: "Tanisha Kasliwal", role: "member" },
+      "shivrajdeshmukh2025.etc@mmcoe.edu.in": { password: "Shivraj@050207", name: "Shivraj Deshmukh", role: "member" },
+      "sohamambulgekar2025.mech@mmcoe.edu.in": { password: "Soham@070518", name: "Soham Ambulgekar", role: "member" },
+      "swayampawar2025.it@mmcoe.edu.in": { password: "Swayam@070730", name: "Swayam Pawar", role: "member" },
+      "siddhantbachal2024.etc@mmcoe.edu.in": { password: "Siddhant@060314", name: "Siddhant Bachal", role: "member" },
+      "sammrudhikulkarni2024.comp@mmcoe.edu.in": { password: "Sammrudhi@060102", name: "Sammrudhi Kulkarni", role: "member" },
+      "sudhanshupatil2025.it@mmcoe.edu.in": { password: "Sudhanshu@061128", name: "Sudhanshu Patil", role: "member" },
+      "anushknanaware2024.etc@mmcoe.edu.in": { password: "Anushk@060607", name: "Anushk Nanaware", role: "member" },
+      "sohambhoir2024.etc@mmcoe.edu.in": { password: "Soham@061102", name: "Soham Bhoir", role: "member" },
+      "urvishivalkar2025.etc@mmcoe.edu.in": { password: "Urvi@071110", name: "Urvi Shivalkar", role: "member" },
+      "siddhichangale2024.etc@mmcoe.edu.in": { password: "Siddhi@060113", name: "Siddhi Changale", role: "member" },
+      "mugdhatipnis2025.ainds@mmcoe.edu.in": { password: "Mugdha@070110", name: "Mugdha Tipnis", role: "member" },
+      "avanisoman2024.etc@mmcoe.edu.in": { password: "Avani@060306", name: "Avani Soman", role: "member" },
+      "sarthakjoshi2025.etc@mmcoe.edu.in": { password: "Sarthak@070810", name: "Sarthak Joshi", role: "member" },
+      "nupurshingvekar2024.etc@mmcoe.edu.in": { password: "nupur@051229", name: "Nupur Shingvekar", role: "member" },
+      "pranavmotale2024.etc@mmcoe.edu.in": { password: "Pranav@060622", name: "Pranav Motale", role: "member" },
+      "yashpradhan2025.etc@mmcoe.edu.in": { password: "Yash@070110", name: "Yash Pradhan", role: "member" },
+      "vishwajitdeshmukh2024.etc@mmcoe.edu.in": { password: "Vishwajit@060114", name: "Vishwajit Deshmukh", role: "member" },
+      "adityashinde2022.etc@mmcoe.edu.in": { password: "Aditya@031009", name: "Aditya Shinde", role: "member" },
+      "rajatmamluskar2024.etc@mmcoe.edu.in": { password: "Rajat@061001", name: "Rajat Mamluskar", role: "member" },
+      "aaravthigale2022.etc@mmcoe.edu.in": { password: "Aarav@040818", name: "Aarav Thigale", role: "member" }
+    };
+
+    // DOM elements
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+    const loginBtn = document.getElementById('loginBtn');
+
+    // Check if already logged in
+    const existingSession = sessionStorage.getItem('vajraUser');
+    if (existingSession) {
+      window.location.href = '/admin/dashboard.html';
+    }
+
+    // Login handler
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+
+      // Reset error
+      errorMsg.style.display = 'none';
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Signing In...';
+
+      try {
+        // Check credentials
+        const user = USERS[username];
+        
+        if (!user) {
+          throw new Error('Invalid email address. Please check and try again.');
+        }
+
+        if (user.password !== password) {
+          throw new Error('Incorrect password. Please try again.');
+        }
+
+        // Create session
+        const sessionData = {
+          email: username,
+          name: user.name,
+          role: user.role,
+          loginTime: Date.now()
+        };
+
+        sessionStorage.setItem('vajraUser', JSON.stringify(sessionData));
+
+        // Redirect to dashboard
+        window.location.href = '/admin/dashboard.html';
+
+      } catch (err) {
+        errorMsg.textContent = err.message;
+        errorMsg.style.display = 'block';
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign In';
+      }
+    });
+  </script>
+</body>
+</html>
