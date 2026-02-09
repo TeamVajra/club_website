@@ -137,6 +137,42 @@
       background: rgba(247, 194, 117, 0.2);
     }
 
+    /* Auth Buttons */
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .signed-in-name {
+      color: var(--brand-yellow);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .sign-out-btn {
+      background: transparent;
+      border: 1px solid #666;
+      color: #aaa;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sign-out-btn:hover {
+      border-color: #f44336;
+      color: #f44336;
+    }
+
+    #userSignedIn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     /* ===== Featured Card (preview) ===== */
     .featured-label {
       font-size: 0.8rem;
@@ -726,7 +762,21 @@
         <h1>Flight Path: The Official Team Vajra Blog</h1>
         <p>Race recaps, build logs, and behind-the-scenes stories from the Team Vajra hangar.</p>
       </div>
-      <a href="/login.html" class="member-login-link">✍️ Member Login</a>
+      <div class="auth-buttons">
+        <!-- Google Sign-In for Public Users (Like/Comment) -->
+        <div id="googleSignInArea">
+          <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black"
+            data-text="signin_with" data-size="medium" data-logo_alignment="left">
+          </div>
+        </div>
+        <!-- Signed-in User Display -->
+        <div id="userSignedIn" style="display: none;">
+          <span id="userName" class="signed-in-name"></span>
+          <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
+        </div>
+        <!-- Member Login (for Club Members to Post Blogs) -->
+        <a href="/login.html" class="member-login-link">✍️ Member Login</a>
+      </div>
     </div>
 
     <!-- FEATURED label -->
@@ -799,7 +849,7 @@
       collection, addDoc, onSnapshot, query, orderBy, runTransaction, getDocs
     } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
     import {
-      getAuth, signInWithCredential, GoogleAuthProvider, onAuthStateChanged, signOut as firebaseSignOut
+      getAuth, signInWithCredential, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut as firebaseSignOut
     } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -816,17 +866,28 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    // Auth state
+    // Auth state - toggle UI based on sign-in status
     onAuthStateChanged(auth, (user) => {
+      const googleSignInArea = document.getElementById('googleSignInArea');
+      const userSignedIn = document.getElementById('userSignedIn');
+      const userName = document.getElementById('userName');
+
       if (user) {
         window.loggedUser = { name: user.displayName, email: user.email, picture: user.photoURL, uid: user.uid };
+        // Hide sign-in button, show user info
+        if (googleSignInArea) googleSignInArea.style.display = 'none';
+        if (userSignedIn) userSignedIn.style.display = 'flex';
+        if (userName) userName.textContent = `👤 ${user.displayName || user.email}`;
       } else {
         window.loggedUser = null;
+        // Show sign-in button, hide user info
+        if (googleSignInArea) googleSignInArea.style.display = 'block';
+        if (userSignedIn) userSignedIn.style.display = 'none';
       }
       window.dispatchEvent(new Event('vajra:auth-changed'));
     });
 
-    // Google Sign-In callback
+    // Google Sign-In callback (for button-based sign-in)
     window.onGoogleSignIn = async function (response) {
       try {
         if (!response?.credential) return;
@@ -836,6 +897,39 @@
         console.error('Sign-in failed:', err);
       }
     };
+
+    // Google Sign-In with Popup (triggered from Like/Comment buttons)
+    const googleProvider = new GoogleAuthProvider();
+    window.pendingAction = null; // Store pending action after sign-in
+
+    async function signInWithGooglePopup() {
+      try {
+        await signInWithPopup(auth, googleProvider);
+        return true;
+      } catch (err) {
+        if (err.code === 'auth/popup-closed-by-user') {
+          console.log('Sign-in popup closed by user');
+        } else {
+          console.error('Sign-in failed:', err);
+          alert('Sign-in failed. Please try again.');
+        }
+        return false;
+      }
+    }
+
+    // Sign-out button handler
+    document.addEventListener('DOMContentLoaded', () => {
+      const signOutBtn = document.getElementById('signOutBtn');
+      if (signOutBtn) {
+        signOutBtn.addEventListener('click', async () => {
+          try {
+            await firebaseSignOut(auth);
+          } catch (err) {
+            console.error('Sign-out failed:', err);
+          }
+        });
+      }
+    });
 
     // Helper function to format date
     function formatDate(timestamp) {
@@ -1071,13 +1165,21 @@
       window.addEventListener('vajra:auth-changed', updateUserLikeUI);
       updateUserLikeUI();
 
-      // Toggle like
+      // Toggle like - triggers popup sign-in if not logged in
       async function toggleLike() {
-        const user = window.loggedUser;
+        let user = window.loggedUser;
+
+        // If not signed in, trigger Google Sign-In popup
         if (!user?.email) {
-          alert('Please sign in with Google before liking the post.');
-          return;
+          const signedIn = await signInWithGooglePopup();
+          if (!signedIn) return; // User cancelled sign-in
+
+          // Wait a moment for auth state to update
+          await new Promise(resolve => setTimeout(resolve, 500));
+          user = window.loggedUser;
+          if (!user?.email) return;
         }
+
         const uid = encEmail(user.email);
         try {
           await runTransaction(db, async (tx) => {
@@ -1120,7 +1222,7 @@
         });
       } catch (e) { console.error('Comments listener error:', e); }
 
-      // Comment form
+      // Comment form - triggers popup sign-in if not logged in
       const commentForm = blockEl.querySelector('.comment-form');
       const commentInput = blockEl.querySelector('.comment-input');
 
@@ -1130,10 +1232,17 @@
           const text = commentInput.value.trim();
           if (!text) return;
 
-          const user = window.loggedUser;
+          let user = window.loggedUser;
+
+          // If not signed in, trigger Google Sign-In popup
           if (!user?.email) {
-            alert('Please sign in with Google before posting a comment.');
-            return;
+            const signedIn = await signInWithGooglePopup();
+            if (!signedIn) return; // User cancelled sign-in
+
+            // Wait a moment for auth state to update
+            await new Promise(resolve => setTimeout(resolve, 500));
+            user = window.loggedUser;
+            if (!user?.email) return;
           }
 
           try {
