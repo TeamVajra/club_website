@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>TEAM VAJRA - About Us</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description"
+        content="About Team Vajra - The official Drone and Robotics Club of MMCOE, Pune. Learn about our mission, vision, and achievements." />
+    <link rel="icon" href="/assets/club-logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-maroon: #800000;
+            --brand-yellow: #f7c275;
+            --text-light: #ffffff;
+            --text-muted: #e0e0e0;
+            --bg-dark: #050608;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        body {
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--bg-dark);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid var(--brand-maroon);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            height: 50px;
+            border-radius: 8px;
+        }
+
+        .title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--brand-yellow);
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--brand-yellow);
+            border-bottom: 2px solid var(--brand-yellow);
+        }
+
+        /* Content */
+        .page-wrap {
+            max-width: 900px;
+            margin: 50px auto 60px;
+            padding: 0 20px;
+        }
+
+        .page-wrap h1 {
+            font-size: 2.2rem;
+            color: var(--brand-yellow);
+            margin-bottom: 10px;
+        }
+
+        .page-wrap h2 {
+            font-size: 1.5rem;
+            color: var(--brand-yellow);
+            margin-top: 40px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(247, 194, 117, 0.2);
+        }
+
+        .page-wrap h3 {
+            font-size: 1.15rem;
+            color: #ddd;
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        .page-wrap p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .page-wrap ul {
+            list-style: none;
+            padding-left: 5px;
+            margin-bottom: 16px;
+        }
+
+        .page-wrap ul li {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding: 3px 0 3px 20px;
+            position: relative;
+        }
+
+        .page-wrap ul li::before {
+            content: '▸';
+            color: var(--brand-yellow);
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight {
+            background: rgba(247, 194, 117, 0.08);
+            border-left: 3px solid var(--brand-yellow);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .highlight strong {
+            color: var(--brand-yellow);
+        }
+
+        .last-updated {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #0a0a0a;
+            border-top: 2px solid var(--brand-maroon);
+            padding: 40px 20px 0;
+            margin-top: 60px;
+        }
+
+        .footer-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-column h4 {
+            color: var(--brand-yellow);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .footer-column p,
+        .footer-column a,
+        .footer-column address p {
+            color: #bbb;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: var(--brand-yellow);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-yellow);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .social-links img {
+            height: 30px;
+            transition: transform 0.3s;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.15);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-main {
+                flex-direction: column;
+            }
+
+            .nav {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav">
+            <div class="brand">
+                <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+                <div>
+                    <div class="title">TEAM VAJRA</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
+                </div>
+            </div>
+            <a href="/index.html">Home</a>
+            <a href="/achievements.html">Achievements</a>
+            <a href="/drones.html">Drones</a>
+            <a href="/gallery.html">Gallery</a>
+            <a href="/team.html">Team</a>
+            <a href="/blog.html">Blogs</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+    </header>
+
+    <main class="page-wrap">
+        <h1>About Team Vajra</h1>
+
+        <p>Team Vajra is the official Drone and Robotics Club of Marathwada Mitramandal's College of Engineering
+            (MMCOE), Pune, India. The club is formed by passionate engineering students dedicated to advancing
+            innovation in unmanned aerial vehicles (UAVs), robotics, and intelligent autonomous systems.</p>
+
+        <p>Our mission is to promote practical learning, research, and technological development in the field of aerial
+            robotics by designing, building, and testing cutting-edge drone platforms for real-world applications.</p>
+
+        <hr>
+
+        <h2>Our Vision</h2>
+        <p>We aim to create a strong ecosystem where students can explore emerging technologies such as:</p>
+        <ul>
+            <li>Autonomous drone systems</li>
+            <li>Artificial intelligence in robotics</li>
+            <li>High-performance FPV racing drones</li>
+            <li>Industrial and commercial UAV solutions</li>
+            <li>Embedded systems and control engineering</li>
+        </ul>
+        <p>Through continuous experimentation and collaboration, we strive to develop engineers who are capable of
+            solving real-world challenges using modern technology.</p>
+
+        <hr>
+
+        <h2>What We Do</h2>
+        <p>Team Vajra actively works on multiple technical domains including:</p>
+        <ul>
+            <li>Drone design and fabrication</li>
+            <li>Flight controller programming</li>
+            <li>Computer vision and AI integration</li>
+            <li>Aerodynamics research</li>
+            <li>Robotics system development</li>
+            <li>Autonomous navigation technologies</li>
+        </ul>
+        <p>In addition to technical projects, we organize workshops, competitions, training sessions, and
+            knowledge-sharing events to help students gain hands-on experience beyond classroom learning.</p>
+
+        <hr>
+
+        <h2>Achievements</h2>
+        <p>Our dedication to engineering excellence has resulted in several prestigious recognitions.</p>
+        <p>One of our proudest milestones includes:</p>
+        <div class="highlight">
+            <strong>🏆 Technoxian 2025 Drone Racing Championship</strong><br>
+            🌍 World Rank: 3<br>
+            🇮🇳 All India Rank: 2
+        </div>
+        <p>This achievement reflects our technical expertise, teamwork, and relentless pursuit of innovation.</p>
+
+        <hr>
+
+        <h2>Educational Content & Blog</h2>
+        <p>Along with club activities, this website serves as an educational platform where we publish articles related
+            to:</p>
+        <ul>
+            <li>Drone technology</li>
+            <li>UAV regulations and safety</li>
+            <li>Robotics engineering concepts</li>
+            <li>Electronics and embedded systems</li>
+            <li>Project development guides</li>
+            <li>Industry trends and innovations</li>
+        </ul>
+        <p>Our goal is to share knowledge and help students, hobbyists, and technology enthusiasts learn and grow in the
+            field of drones and robotics.</p>
+
+        <hr>
+
+        <h2>Our Commitment</h2>
+        <p>We are committed to providing accurate, educational, and valuable technical information through our platform.
+            The content published on this website is created for informational and learning purposes, based on our
+            practical experience, research, and engineering projects.</p>
+
+        <hr>
+
+        <h2>Contact & Collaboration</h2>
+        <p>We welcome collaborations, technical discussions, and learning opportunities. If you would like to connect
+            with Team Vajra for workshops, partnerships, or project discussions, please visit our <a
+                href="/contact.html" style="color: var(--brand-yellow);">Contact page</a>.</p>
+
+        <hr>
+
+        <h2>Location</h2>
+        <p>Marathwada Mitramandal's College of Engineering (MMCOE)<br>Pune, Maharashtra, India</p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="footer-column branding">
+                <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+                <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone
+                    technology.</p>
+            </div>
+
+            <div class="footer-column contact">
+                <h4>Contact Us</h4>
+                <address>
+                    <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a>
+                    </p>
+                    <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+                    <p><strong>Phone:</strong> Omkar B.: +91 7058819104</p>
+                </address>
+            </div>
+
+            <div class="footer-column social">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img
+                            src="/assets/insta-logo.png" alt="Instagram"></a>
+                    <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img
+                            src="/assets/linkedin-logo.png" alt="LinkedIn"></a>
+                </div>
+                <p><strong>Location:</strong><br>Sr.No.18, Plot No.5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar,
+                    Pune 411052, Maharashtra, India.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="/disclaimer.html">Disclaimer</a></li>
+                    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
