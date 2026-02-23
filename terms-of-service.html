@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>TEAM VAJRA - Terms of Service</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description"
+        content="Terms of Service for Team Vajra website. Understand the rules and guidelines for using our platform." />
+    <link rel="icon" href="/assets/club-logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-maroon: #800000;
+            --brand-yellow: #f7c275;
+            --text-light: #ffffff;
+            --text-muted: #e0e0e0;
+            --bg-dark: #050608;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        body {
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--bg-dark);
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid var(--brand-maroon);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            height: 50px;
+            border-radius: 8px;
+        }
+
+        .title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--brand-yellow);
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--brand-yellow);
+            border-bottom: 2px solid var(--brand-yellow);
+        }
+
+        .page-wrap {
+            max-width: 900px;
+            margin: 50px auto 60px;
+            padding: 0 20px;
+        }
+
+        .page-wrap h1 {
+            font-size: 2.2rem;
+            color: var(--brand-yellow);
+            margin-bottom: 10px;
+        }
+
+        .page-wrap h2 {
+            font-size: 1.5rem;
+            color: var(--brand-yellow);
+            margin-top: 40px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(247, 194, 117, 0.2);
+        }
+
+        .page-wrap p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .page-wrap p a {
+            color: var(--brand-yellow);
+            text-decoration: none;
+        }
+
+        .page-wrap p a:hover {
+            text-decoration: underline;
+        }
+
+        .page-wrap ul {
+            list-style: none;
+            padding-left: 5px;
+            margin-bottom: 16px;
+        }
+
+        .page-wrap ul li {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding: 3px 0 3px 20px;
+            position: relative;
+        }
+
+        .page-wrap ul li::before {
+            content: '▸';
+            color: var(--brand-yellow);
+            position: absolute;
+            left: 0;
+        }
+
+        .allowed {
+            color: #4caf50 !important;
+            font-weight: 500;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .disallowed {
+            color: #f44336 !important;
+            font-weight: 500;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .last-updated {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        .site-footer {
+            background: #0a0a0a;
+            border-top: 2px solid var(--brand-maroon);
+            padding: 40px 20px 0;
+            margin-top: 60px;
+        }
+
+        .footer-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-column h4 {
+            color: var(--brand-yellow);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .footer-column p,
+        .footer-column a,
+        .footer-column address p {
+            color: #bbb;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: var(--brand-yellow);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-yellow);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .social-links img {
+            height: 30px;
+            transition: transform 0.3s;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.15);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-main {
+                flex-direction: column;
+            }
+
+            .nav {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav">
+            <div class="brand">
+                <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+                <div>
+                    <div class="title">TEAM VAJRA</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
+                </div>
+            </div>
+            <a href="/index.html">Home</a>
+            <a href="/achievements.html">Achievements</a>
+            <a href="/drones.html">Drones</a>
+            <a href="/gallery.html">Gallery</a>
+            <a href="/team.html">Team</a>
+            <a href="/blog.html">Blogs</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+    </header>
+
+    <main class="page-wrap">
+        <h1>Terms of Service</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> 23-02-2026</p>
+
+        <p>Welcome to Team Vajra. By accessing and using this website, you accept and agree to be bound by the terms and
+            conditions outlined below. If you do not agree with any part of these terms, please do not use our website.
+        </p>
+
+        <hr>
+
+        <h2>Use of Website</h2>
+        <p>The content provided on this website is intended for informational and educational purposes related to
+            drones, robotics, engineering, and technology.</p>
+        <p>You agree to use this website only for lawful purposes and in a manner that does not violate any applicable
+            laws or regulations.</p>
+        <p>You must not:</p>
+        <ul>
+            <li>Use the website in any way that may damage or disrupt its functionality</li>
+            <li>Attempt unauthorized access to any part of the website</li>
+            <li>Use the website for fraudulent or harmful activities</li>
+            <li>Copy or reproduce content without permission</li>
+        </ul>
+
+        <hr>
+
+        <h2>Intellectual Property Rights</h2>
+        <p>Unless otherwise stated, all content on this website — including text, images, logos, graphics, and materials
+            — is the property of Team Vajra and is protected by applicable copyright and intellectual property laws.</p>
+        <p class="allowed">✔ View and use content for personal, educational, or non-commercial purposes</p>
+        <p class="disallowed">❌ Reproduce, distribute, or republish content without written permission</p>
+
+        <hr>
+
+        <h2>User-Generated Communication</h2>
+        <p>If you contact us or submit information through forms or email, you agree that the information provided is
+            accurate and lawful.</p>
+        <p>We reserve the right to ignore or remove any communication that is inappropriate, offensive, or violates
+            applicable laws.</p>
+
+        <hr>
+
+        <h2>External Links</h2>
+        <p>Our website may contain links to third-party websites for additional information or resources. We do not
+            control or guarantee the accuracy, relevance, or reliability of external content.</p>
+        <p>Visiting external websites is done at your own discretion and risk.</p>
+
+        <hr>
+
+        <h2>Limitation of Liability</h2>
+        <p>Team Vajra shall not be held liable for any direct, indirect, incidental, or consequential damages resulting
+            from:</p>
+        <ul>
+            <li>Use or inability to use the website</li>
+            <li>Errors or omissions in content</li>
+            <li>Technical issues or interruptions</li>
+            <li>Reliance on information provided</li>
+        </ul>
+        <p>Users are responsible for how they apply information obtained from this website.</p>
+
+        <hr>
+
+        <h2>Educational Content Disclaimer</h2>
+        <p>All technical content, tutorials, and project information are provided for learning purposes only.
+            Implementation of any concepts should be done with proper knowledge, supervision, and safety precautions.
+        </p>
+
+        <hr>
+
+        <h2>Privacy</h2>
+        <p>Your use of this website is also governed by our <a href="/privacy-policy.html">Privacy Policy</a>. We
+            encourage users to review the Privacy Policy page to understand how information is collected and used.</p>
+
+        <hr>
+
+        <h2>Changes to Terms</h2>
+        <p>We reserve the right to modify or update these Terms of Service at any time without prior notice. Updates
+            will be posted on this page with a revised date.</p>
+        <p>Continued use of the website after changes constitutes acceptance of the updated terms.</p>
+
+        <hr>
+
+        <h2>Governing Law</h2>
+        <p>These Terms shall be governed and interpreted in accordance with the laws of India. Any disputes arising from
+            the use of this website shall be subject to the jurisdiction of courts located in Pune, Maharashtra.</p>
+
+        <hr>
+
+        <h2>Contact Information</h2>
+        <p>If you have any questions regarding these Terms of Service, please contact us through our <a
+                href="/contact.html">Contact page</a>.</p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="footer-column branding">
+                <h4>TEAM VAJRA - RC Drone Club MMCOE</h4>
+                <p>At Team Vajra, we aim to cater to industrial and social needs by developing skilled manpower in drone
+                    technology.</p>
+            </div>
+            <div class="footer-column contact">
+                <h4>Contact Us</h4>
+                <address>
+                    <p><strong>Email:</strong> <a href="mailto:teamvajra_rc@mmcoe.edu.in">teamvajra_rc@mmcoe.edu.in</a>
+                    </p>
+                    <p><strong>Phone:</strong> Tanisha K.: +91 9307832052</p>
+                    <p><strong>Phone:</strong> Omkar B.: +91 7058819104</p>
+                </address>
+            </div>
+            <div class="footer-column social">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/teamvajra_mmcoe/" target="_blank"><img
+                            src="/assets/insta-logo.png" alt="Instagram"></a>
+                    <a href="https://in.linkedin.com/company/team-vajra-mmcoe" target="_blank"><img
+                            src="/assets/linkedin-logo.png" alt="LinkedIn"></a>
+                </div>
+                <p><strong>Location:</strong><br>Sr.No.18, Plot No.5/3, CTS No.205, Behind Vandevi Temple, Karve Nagar,
+                    Pune 411052, Maharashtra, India.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="/disclaimer.html">Disclaimer</a></li>
+                    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 TEAM VAJRA. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
