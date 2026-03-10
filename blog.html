@@ -83,15 +83,18 @@
       color: #fff;
       transition: color 0.3s, border-bottom 0.3s;
     }
-
-    .nav a:hover {
-      color: var(--brand-yellow);
-      border-bottom: 2px solid var(--brand-maroon);
+.nav a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      color: var(--text-light);
+      transition: color 0.3s, border-bottom 0.3s;
     }
 
+    .nav a:hover,
     .nav a.active {
       color: var(--brand-yellow);
-      border-bottom: 2px solid var(--brand-yellow);
+      border-bottom: 2px solid var(--brand-maroon);
     }
 
     /* ===== Page Wrapper ===== */
