@@ -719,6 +719,19 @@
       transform: scale(1.1);
       filter: brightness(110%);
     }
+    .like-btn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.like-btn.liked {
+  background: red;
+  color: white;
+  border-color: red;
+}
 
     /* ===== Responsive ===== */
     @media (max-width: 900px) {
@@ -1395,6 +1408,22 @@
 
     // Initialize
     loadBlogs();
+    document.querySelectorAll(".like-btn").forEach(button => {
+  button.addEventListener("click", function () {
+
+    const likeCount = this.closest("div").parentElement.querySelector(".like-count");
+    let count = parseInt(likeCount.innerText);
+
+    if (this.classList.contains("liked")) {
+      this.classList.remove("liked");
+      likeCount.innerText = count - 1;
+    } else {
+      this.classList.add("liked");
+      likeCount.innerText = count + 1;
+    }
+
+  });
+});
   </script>
 </body>
 
