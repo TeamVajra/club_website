@@ -325,6 +325,19 @@
       font-size: 0.8rem;
       color: var(--text-muted);
     }
+    .like-btn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.like-btn.liked {
+  background: red;
+  color: white;
+  border-color: red;
+}
 
     /* ===== Full Blog Article ===== */
     .blog-post {
@@ -1406,23 +1419,33 @@
       }
     }
 
-    // Initialize
-    loadBlogs();
-    document.querySelectorAll(".like-btn").forEach(button => {
-  button.addEventListener("click", function () {
+   document.querySelectorAll(".like-btn").forEach((button, index) => {
 
-    const likeCount = this.closest("div").parentElement.querySelector(".like-count");
+  const likeKey = "liked_" + index;
+  const likeCount = button.closest("div").parentElement.querySelector(".like-count");
+
+  // Check if already liked
+  if(localStorage.getItem(likeKey) === "true"){
+    button.classList.add("liked");
+  }
+
+  button.addEventListener("click", function(){
+
     let count = parseInt(likeCount.innerText);
 
-    if (this.classList.contains("liked")) {
-      this.classList.remove("liked");
-      likeCount.innerText = count - 1;
-    } else {
-      this.classList.add("liked");
-      likeCount.innerText = count + 1;
+    if(button.classList.contains("liked")){
+        button.classList.remove("liked");
+        localStorage.setItem(likeKey, "false");
+        likeCount.innerText = count - 1;
+    } 
+    else{
+        button.classList.add("liked");
+        localStorage.setItem(likeKey, "true");
+        likeCount.innerText = count + 1;
     }
 
   });
+
 });
   </script>
 </body>
