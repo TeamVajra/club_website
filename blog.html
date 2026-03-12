@@ -1418,34 +1418,9 @@
         }
       }
     }
-
-   document.querySelectorAll(".like-btn").forEach((button, index) => {
-
-  const likeKey = "liked_" + index;
-  const likeCount = button.closest("div").parentElement.querySelector(".like-count");
-
-  // Check if already liked
-  if(localStorage.getItem(likeKey) === "true"){
-    button.classList.add("liked");
-  }
-
-  button.addEventListener("click", function(){
-
-    let count = parseInt(likeCount.innerText);
-
-    if(button.classList.contains("liked")){
-        button.classList.remove("liked");
-        localStorage.setItem(likeKey, "false");
-        likeCount.innerText = count - 1;
-    } 
-    else{
-        button.classList.add("liked");
-        localStorage.setItem(likeKey, "true");
-        likeCount.innerText = count + 1;
-    }
-
-  });
-
+    // Load blogs when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadBlogs();
 });
   </script>
 </body>
