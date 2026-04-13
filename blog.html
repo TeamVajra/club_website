@@ -97,6 +97,19 @@
  color: var(--brand-yellow);
  border-bottom: 2px solid var(--brand-maroon);
  }
+  .brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* adjust to match your existing gap */
+  cursor: pointer;
+}
+
+.brand:hover {
+  opacity: 0.85;
+  transition: opacity 180ms ease;
+}
+
 
  /* ===== Page Wrapper ===== */
  .page-wrap {
@@ -742,27 +755,24 @@
  data-callback="onGoogleSignIn" data-auto_prompt="false">
  </div>
 
- <!-- Header -->
  <header class="header">
- <div class="container nav">
- <div class="brand">
- <button onclick="window.open('index.html')" style="background-color: transparent;border: none;">
- <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
- <div>
- <div class="title">TEAM VAJRA</div>
- <div style="font-size:12px;color:var(--text-muted)">Drone Club · MMCOE</div>
- </div>
- </button>
- </div>
- <a href="/index.html">Home</a>
- <a href="/achievements.html">Achievements</a>
- <a href="/drones.html">Drones</a>
- <a href="/gallery.html">Gallery</a>
- <a href="/team.html">Team</a>
- <a href="/blog.html" class="active">Blogs</a>
- <a href="/contact.html">Contact</a>
- </div>
- </header>
+  <div class="container nav">
+    <a href="/index.html" class="brand" aria-label="Team Vajra Home">
+      <img src="/assets/club-logo.jpg" alt="Team Vajra logo">
+      <div>
+        <div class="title">TEAM VAJRA</div>
+        <div style="font-size:12px;color:#fff;">Drone Club · MMCOE</div>
+      </div>
+    </a>
+    <a href="/index.html">Home</a>
+    <a href="/achievements.html">Achievements</a>
+    <a href="/drones.html">Drones</a>
+    <a href="/gallery.html">Gallery</a>
+    <a href="/team.html">Team</a>
+    <a href="/blog.html">Blogs</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+</header>
 
  <main class="page-wrap" id="top">
  <div class="page-title">
